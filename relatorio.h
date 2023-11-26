@@ -14,7 +14,24 @@ private:
     int numero_total_eleitos;
 public:
     Relatorio(const tm &data_eleicao, const map<int, Partido> &partidos);
+    
+    //Relatorio 1
     const int &get_numero_total_eleitos() const;
+
+    //Relatorio 2
+    void candidatos_eleitos();
+
+    //Relatorio 3
+    void candidatos_mais_votados();
+
+    //Relatorio 4
+    void teriam_sido_eleitos();
+
+    //Relatorio 5
+    void eleitos_beneficiados_sistema_porporcional();
+
+    //Relatorio 8
+    void eleitos_por_faixa_etaria();
 };
 
 
