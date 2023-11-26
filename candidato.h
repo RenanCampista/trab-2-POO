@@ -38,6 +38,12 @@ public:
     const string &get_tipo_destinacao_votos() const;
     const int &get_qtd_votos_nominal() const;
     
+    bool tem_federacao() const;
+    bool votos_legenda() const;
+    bool is_eleito() const;
+    void adicionar_voto(const int &qtd_votos);
+
+    
 
 };
 

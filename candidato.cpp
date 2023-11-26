@@ -3,10 +3,10 @@
 
 Candidato::Candidato(const int &cod_situacao_candidato, const int &numero_candidato, const string &nome_urna, const int &num_partido, 
                             const string &sigla_partido, const int &num_federacao, const tm &data_nascimento, const int &status_candidatura, 
-                                                             const int &cod_genero, const string &tipo_destinacao_votos, const int &qtd_votos_nominal) : 
-                                                             cod_situacao_candidato(cod_situacao_candidato), numero_candidato(numero_candidato), nome_urna(nome_urna), num_partido(num_partido), 
-                                                            sigla_partido(sigla_partido), num_federacao(num_federacao), data_nascimento(data_nascimento), /*status_candidatura(status_candidatura),*/ 
-                                                             /*cod_genero(cod_genero),*/ tipo_destinacao_votos(tipo_destinacao_votos), qtd_votos_nominal(qtd_votos_nominal) {   
+                            const int &cod_genero, const string &tipo_destinacao_votos, const int &qtd_votos_nominal) : 
+                            cod_situacao_candidato(cod_situacao_candidato), numero_candidato(numero_candidato), nome_urna(nome_urna), num_partido(num_partido), 
+                            sigla_partido(sigla_partido), num_federacao(num_federacao), data_nascimento(data_nascimento), /*status_candidatura(status_candidatura),*/ 
+                             /*cod_genero(cod_genero),*/ tipo_destinacao_votos(tipo_destinacao_votos), qtd_votos_nominal(qtd_votos_nominal) {   
     if (status_candidatura == 2 || status_candidatura == 3)
         this->status_candidatura = ELEITO;
     else 
@@ -60,4 +60,20 @@ const string &Candidato::get_tipo_destinacao_votos() const {
 
 const int &Candidato::get_qtd_votos_nominal() const {
     return qtd_votos_nominal;
+}
+
+bool Candidato::tem_federacao() const {
+    return num_federacao != -1;
+}
+
+bool Candidato::votos_legenda() const {
+    return this->tipo_destinacao_votos == "Válido";
+}
+
+bool Candidato::is_eleito() const {
+    return this->status_candidatura == ELEITO;
+}
+
+void Candidato::adicionar_voto(const int &qtd_votos) {
+    this->qtd_votos_nominal += qtd_votos;
 }
