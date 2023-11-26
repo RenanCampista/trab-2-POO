@@ -27,6 +27,10 @@ public:
     const Candidato &get_candidato_menos_votado() const;
     void add_candidato(const Candidato &candidato);
     
+    bool contem_candidato(const int &numero_candidato) const;
+    bool ha_candidato_cadastrado() const;
+    void adicionar_voto_candidato(const int &numero_votavel, const int &qtd_votos);
+    const map<int, Candidato> &get_candidatos() const;
 };
 
 

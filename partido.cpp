@@ -49,6 +49,8 @@ const int &Partido::get_total_votos() const {
 //     return *mais_votado;
 // }
 
+//mais_votado->get_data_nascimento() > c.second.get_data_nascimento()
+
 // const Candidato &Partido::get_candidato_menos_votado() const {
 //     const Candidato *menos_votado = nullptr;
 //     for (const pair<int, Candidato> c : candidatos) {
@@ -64,3 +66,21 @@ void Partido::add_candidato(const Candidato &candidato) {
     candidatos.insert(pair<int, Candidato>(candidato.get_numero_candidato(), candidato));
 }
 
+bool Partido::contem_candidato(const int &numero_candidato) const {
+    return candidatos.find(numero_candidato) != candidatos.end();
+}
+
+bool Partido::ha_candidato_cadastrado() const {
+    return !candidatos.empty();
+}
+
+void Partido::adicionar_voto_candidato(const int &numero_votavel, const int &qtd_votos) {
+    if(candidatos.at(numero_votavel).get_tipo_destinacao_votos() == "Válido (legenda)")
+        this->qtd_votos_legenda += qtd_votos;
+    else
+        candidatos.at(numero_votavel).adicionar_voto(qtd_votos);
+}
+
+const map<int, Candidato> &Partido::get_candidatos() const {
+    return candidatos;
+}
