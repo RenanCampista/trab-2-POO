@@ -82,5 +82,5 @@ void Partido::adicionar_voto_candidato(const int &numero_votavel, const int &qtd
 }
 
 const map<int, Candidato> &Partido::get_candidatos() const {
-    return candidatos;
+    return this->candidatos;
 }

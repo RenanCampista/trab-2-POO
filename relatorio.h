@@ -9,8 +9,8 @@
 class Relatorio {
 private:
     tm data_eleicao;
-    vector<Candidato> candidatos;
-    vector<Partido> partidos;
+    vector<Candidato> candidatos_vector;
+    vector<Partido> partidos_vetor;
     int numero_total_eleitos;
 public:
     Relatorio(const tm &data_eleicao, const map<int, Partido> &partidos);
@@ -32,6 +32,12 @@ public:
 
     //Relatorio 8
     void eleitos_por_faixa_etaria();
+
+    //Relatorio 9
+    void eleitos_por_genero();
+
+    //Relatorio 10
+    void total_votos_validos();
 };
 
 
