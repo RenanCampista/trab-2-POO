@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Relatorio::Relatorio(const tm &data_eleicao, const map<int, Partido> &partidos) : data_eleicao(data_eleicao) {
+Relatorio::Relatorio(const Data &data_eleicao, const map<int, Partido> &partidos) : data_eleicao(data_eleicao) {
     for (const pair<int, Partido> p : partidos) {
         this->numero_total_eleitos = p.second.get_eleitos();
         this->candidatos_vector.push_back(p.second.get_candidato_mais_votado());

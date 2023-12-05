@@ -2,7 +2,7 @@
 #define _CANDIDATO_H_
 
 #include <string>
-#include <ctime>
+#include "data.h"
 
 using namespace std;
 
@@ -17,14 +17,14 @@ private:
     int num_partido;
     string sigla_partido;
     int num_federacao;
-    tm data_nascimento;
+    Data data_nascimento;
     SituacaoCandidato status_candidatura;
     Genero cod_genero;
     string tipo_destinacao_votos;
     int qtd_votos_nominal;
 public:
     Candidato(const int &cod_situacao_candidato, const int &numero_candidato, const string &nome_urna, const int &num_partido, 
-                                const string &sigla_partido, const int &num_federacao, const tm &data_nascimento, const int &status_candidatura, 
+                                const string &sigla_partido, const int &num_federacao, const Data &data_nascimento, const int &status_candidatura, 
                                                                     const int &cod_genero, const string &tipo_destinacao_votos, const int &qtd_votos_nominal);
     const int &get_cod_situacao_candidato() const;
     const int &get_numero_candidato() const;
@@ -32,12 +32,12 @@ public:
     const int &get_num_partido() const;
     const string &get_sigla_partido() const;
     const int &get_num_federacao() const;
-    const tm &get_data_nascimento() const;
+    const Data &get_data_nascimento() const;
     const SituacaoCandidato &get_status_candidatura() const;
     const Genero &get_cod_genero() const;
     const string &get_tipo_destinacao_votos() const;
     const int &get_qtd_votos_nominal() const;
-    int &get_idade(const tm &data_atual) const;
+    const int &get_idade(const Data &data_atual) const;
     
     bool tem_federacao() const;
     bool votos_legenda() const;

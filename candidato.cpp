@@ -1,9 +1,9 @@
 #include <iostream>
-#include <ctime>
+#include <iomanip> // Add missing include for setw
 #include "candidato.h"
 
 Candidato::Candidato(const int &cod_situacao_candidato, const int &numero_candidato, const string &nome_urna, const int &num_partido, 
-                            const string &sigla_partido, const int &num_federacao, const tm &data_nascimento, const int &status_candidatura, 
+                            const string &sigla_partido, const int &num_federacao, const Data &data_nascimento, const int &status_candidatura, 
                             const int &cod_genero, const string &tipo_destinacao_votos, const int &qtd_votos_nominal) : 
                             cod_situacao_candidato(cod_situacao_candidato), numero_candidato(numero_candidato), nome_urna(nome_urna), num_partido(num_partido), 
                             sigla_partido(sigla_partido), num_federacao(num_federacao), data_nascimento(data_nascimento), /*status_candidatura(status_candidatura),*/ 
@@ -43,7 +43,7 @@ const int &Candidato::get_num_federacao() const {
     return num_federacao;
 }
 
-const tm &Candidato::get_data_nascimento() const {
+const Data &Candidato::get_data_nascimento() const {
     return data_nascimento;
 }
 
@@ -52,13 +52,8 @@ const SituacaoCandidato &Candidato::get_status_candidatura() const {
 }
 
 //não testado
-int &get_idade(const tm &data_atual) {
-    time_t normal = mktime(&(this->data_nascimento));
-    time_t current = mktime(&data_atual);
-    time(&current);
-    int idade = (difftime(current, normal) + 86400L/2) / 86400L;
-    idade = idade/365;
-    return idade;
+const int &Candidato::get_idade(const Data &data_atual) const {
+    return data_nascimento.get_idade(data_atual);
 }
 
 const Genero &Candidato::get_cod_genero() const {
@@ -93,13 +88,13 @@ void Candidato::adicionar_voto(const int &qtd_votos) {
 class VotoNominalComparator {
 public:
     bool operator()(const Candidato& c1, const Candidato& c2) const {
-        return c2.getQtdVotosNominal() < c1.getQtdVotosNominal();
+        return c2.get_qtd_votos_nominal() < c1.get_qtd_votos_nominal(); // Fix member function name
     }
 };
 
 //não testado
-friend std::ostream& operator<<(std::ostream& os, const Candidato& candidato) {
-        os << (candidato.temFederacao() ? "*" : "") << candidato.nomeUrna << " ("
-           << candidato.siglaPartido << ", " << std::setw(5) << candidato.qtdVotosNominal << " votos)";
-        return os;
-    }
+std::ostream& operator<<(std::ostream& os, const Candidato& candidato) { // Add std:: before ostream
+    os << (candidato.tem_federacao() ? "*" : "") << candidato.get_nome_urna() << " ("
+       << candidato.get_sigla_partido() << ", " << std::setw(5) << candidato.get_qtd_votos_nominal() << " votos)"; // Add std:: before setw
+    return os;
+}

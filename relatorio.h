@@ -1,19 +1,19 @@
 #if !defined(_RELATORIO_H_)
 #define _RELATORIO_H_
 
-#include <ctime>
 #include <vector>
 #include "candidato.h"
 #include "partido.h"
+#include "data.h"
 
 class Relatorio {
 private:
-    tm data_eleicao;
+    Data data_eleicao;
     vector<Candidato> candidatos_vector;
     vector<Partido> partidos_vetor;
     int numero_total_eleitos;
 public:
-    Relatorio(const tm &data_eleicao, const map<int, Partido> &partidos);
+    Relatorio(const Data &data_eleicao, const map<int, Partido> &partidos);
     
     //Relatorio 1
     const int &get_numero_total_eleitos() const;
