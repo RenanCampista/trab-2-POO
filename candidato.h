@@ -37,18 +37,19 @@ public:
     const Genero &get_cod_genero() const;
     const string &get_tipo_destinacao_votos() const;
     const int &get_qtd_votos_nominal() const;
+    int &get_idade(const tm &data_atual) const;
     
     bool tem_federacao() const;
     bool votos_legenda() const;
     bool is_eleito() const;
     void adicionar_voto(const int &qtd_votos);
 
-    
+    friend std::ostream& operator<<(std::ostream& os, const Candidato& candidato);
+    class VotoNominalComparator {
+    public:
+        bool operator()(const Candidato& c1, const Candidato& c2) const;
+    };
 
 };
-
-
-
-
 
 #endif // _CANDIDATO_H_
