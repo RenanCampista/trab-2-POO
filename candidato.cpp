@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 #include "candidato.h"
 
 Candidato::Candidato(const int &cod_situacao_candidato, const int &numero_candidato, const string &nome_urna, const int &num_partido, 
@@ -50,6 +51,16 @@ const SituacaoCandidato &Candidato::get_status_candidatura() const {
     return status_candidatura;
 }
 
+//não testado
+int &get_idade(const tm &data_atual) {
+    time_t normal = mktime(&(this->data_nascimento));
+    time_t current = mktime(&data_atual);
+    time(&current);
+    int idade = (difftime(current, normal) + 86400L/2) / 86400L;
+    idade = idade/365;
+    return idade;
+}
+
 const Genero &Candidato::get_cod_genero() const {
     return cod_genero;
 }
@@ -77,3 +88,18 @@ bool Candidato::is_eleito() const {
 void Candidato::adicionar_voto(const int &qtd_votos) {
     this->qtd_votos_nominal += qtd_votos;
 }
+
+//não testado
+class VotoNominalComparator {
+public:
+    bool operator()(const Candidato& c1, const Candidato& c2) const {
+        return c2.getQtdVotosNominal() < c1.getQtdVotosNominal();
+    }
+};
+
+//não testado
+friend std::ostream& operator<<(std::ostream& os, const Candidato& candidato) {
+        os << (candidato.temFederacao() ? "*" : "") << candidato.nomeUrna << " ("
+           << candidato.siglaPartido << ", " << std::setw(5) << candidato.qtdVotosNominal << " votos)";
+        return os;
+    }
