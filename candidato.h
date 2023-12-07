@@ -50,6 +50,13 @@ public:
         bool operator()(const Candidato& c1, const Candidato& c2) const;
     };
 
+    class VotoNominalComparator {
+        public:
+            bool operator()(const Candidato& c1, const Candidato& c2) const {
+                return c2.get_qtd_votos_nominal() < c1.get_qtd_votos_nominal(); // Fix member function name
+            }
+    };
+
 };
 
 #endif // _CANDIDATO_H_

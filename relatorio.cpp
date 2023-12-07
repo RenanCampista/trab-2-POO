@@ -1,8 +1,38 @@
 #include <iostream>
 #include <iomanip>
+#include <algorithm>
 #include "relatorio.h"
 
 using namespace std;
+
+
+/*
+
+
+
+#include <algorithm>
+#include <vector>
+
+// Definindo a estrutura do candidato
+struct Candidato {
+    // Adicione os membros necessários aqui
+};
+
+// Definindo a classe de comparação
+struct VotoNominalComparator {
+    bool operator() (const Candidato& a, const Candidato& b) const {
+        // Implemente a lógica de comparação aqui
+        // Retorne true se 'a' deve vir antes de 'b'
+    }
+};
+
+// Em algum lugar do seu código
+std::vector<Candidato> candidatos_vector;
+// Preencha o vetor
+std::sort(candidatos_vector.begin(), candidatos_vector.end(), VotoNominalComparator());
+
+
+*/
 
 Relatorio::Relatorio(const Data &data_eleicao, const map<int, Partido> &partidos) : data_eleicao(data_eleicao) {
     for (const pair<int, Partido> p : partidos) {
@@ -12,7 +42,11 @@ Relatorio::Relatorio(const Data &data_eleicao, const map<int, Partido> &partidos
             this->candidatos_vector.push_back(c.second);
         }
     }
-    //Collections.sort(candidatosList, new VotoNominalComparator());
+    //Collections.sort(candidatos_vector, new VotoNominalComparator());
+
+    //sort(this->candidatos_vector.begin(), this->candidatos_vector.end(), VotoNominalComparator());
+
+
 }
 
 //Relatorio 1
