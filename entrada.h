@@ -7,7 +7,7 @@
 using namespace std;
 
 enum EntradaCandidato {
-    CD_CARGO = 13,
+    CD_CARGO_CANDIDATO = 13,
     CD_SITUACAO_CANDIDATO_TOT = 68,
     NR_CANDIDATO = 16,
     NM_URNA_CANDIDATO = 18,
