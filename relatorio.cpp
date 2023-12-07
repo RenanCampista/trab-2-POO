@@ -7,7 +7,7 @@ using namespace std;
 Relatorio::Relatorio(const Data &data_eleicao, const map<int, Partido> &partidos) : data_eleicao(data_eleicao) {
     for (const pair<int, Partido> p : partidos) {
         this->numero_total_eleitos = p.second.get_eleitos();
-        this->candidatos_vector.push_back(p.second.get_candidato_mais_votado());
+        this->partidos_vetor.push_back(p.second);
         for (const pair<int, Candidato> c : p.second.get_candidatos()) {
             this->candidatos_vector.push_back(c.second);
         }
@@ -52,7 +52,7 @@ void Relatorio::teriam_sido_eleitos() {
 
 //Relatorio 5
 void Relatorio::eleitos_beneficiados_sistema_porporcional() {
-    for (int i = this->numero_total_eleitos; i < this->candidatos_vector.size(); i++) {
+    for (vector<Candidato>::size_type i = this->numero_total_eleitos; i < this->candidatos_vector.size(); i++) {
         cout << i + 1 << " - " << endl;
         //faltar imprimir os dados do candidato do vector ordenado
     }

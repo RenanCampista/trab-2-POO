@@ -17,15 +17,15 @@ const int &Partido::get_qtd_votos_legenda() const {
     return qtd_votos_legenda;
 }
 
-const int &Partido::get_eleitos() const {
+int Partido::get_eleitos() const {
     int eleitos = 0;
-    for (const pair<int, Candidato> c : candidatos) {
+    for (const auto& c : candidatos) {
         if (c.second.is_eleito()) eleitos++;
     }
     return eleitos;
 }
 
-const int &Partido::get_votos_nominais() const {
+int Partido::get_votos_nominais() const {
     int votos = 0;
     for (const pair<int, Candidato> c : candidatos) {
         if (c.second.votos_legenda())
@@ -34,7 +34,7 @@ const int &Partido::get_votos_nominais() const {
     return votos;
 }
 
-const int &Partido::get_total_votos() const {
+int Partido::get_total_votos() const {
     return qtd_votos_legenda + get_votos_nominais();
 }
 
