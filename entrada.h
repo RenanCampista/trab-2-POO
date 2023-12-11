@@ -2,7 +2,10 @@
 #define _ENTRADA_H_
 
 #include <map>
+#include <string>
 #include "partido.h"
+#include "candidato.h"
+#include "data.h"
 
 using namespace std;
 
@@ -31,10 +34,11 @@ private:
     map<int, Partido> partidos;
 public:
     Entrada();
+    void read_votacao(string &path, string &arg, map<int, Partido> &partidos);
+    map<int, Partido> &read_candidatos(const string &path, const string &opcao);
 };
 
 
-
-
-
 #endif // _ENTRADA_H_
+
+

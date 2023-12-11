@@ -1,5 +1,3 @@
-#include <iostream>
-#include <iomanip> // Add missing include for setw
 #include "candidato.h"
 
 Candidato::Candidato(const int &cod_situacao_candidato, const int &numero_candidato, const string &nome_urna, const int &num_partido, 
@@ -82,19 +80,4 @@ bool Candidato::is_eleito() const {
 
 void Candidato::adicionar_voto(const int &qtd_votos) {
     this->qtd_votos_nominal += qtd_votos;
-}
-
-//não testado
-class VotoNominalComparator {
-public:
-    bool operator()(const Candidato& c1, const Candidato& c2) const {
-        return c2.get_qtd_votos_nominal() < c1.get_qtd_votos_nominal(); // Fix member function name
-    }
-};
-
-//não testado
-std::ostream& operator<<(std::ostream& os, const Candidato& candidato) { // Add std:: before ostream
-    os << (candidato.tem_federacao() ? "*" : "") << candidato.get_nome_urna() << " ("
-       << candidato.get_sigla_partido() << ", " << std::setw(5) << candidato.get_qtd_votos_nominal() << " votos)"; // Add std:: before setw
-    return os;
 }

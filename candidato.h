@@ -2,6 +2,8 @@
 #define _CANDIDATO_H_
 
 #include <string>
+#include <iomanip>
+#include <iostream>
 #include "data.h"
 
 using namespace std;
@@ -44,11 +46,11 @@ public:
     bool is_eleito() const;
     void adicionar_voto(const int &qtd_votos);
 
-    friend std::ostream& operator<<(std::ostream& os, const Candidato& candidato);
-    class VotoNominalComparator {
-    public:
-        bool operator()(const Candidato& c1, const Candidato& c2) const;
-    };
+    friend std::ostream& operator<<(std::ostream& os, const Candidato& candidato){ // Add std:: before ostream
+    os << (candidato.tem_federacao() ? "*" : "") << candidato.get_nome_urna() << " ("
+       << candidato.get_sigla_partido() << ", " << std::setw(5) << candidato.get_qtd_votos_nominal() << " votos)"; // Add std:: before setw
+    return os;
+    }
 
     class VotoNominalComparator {
         public:

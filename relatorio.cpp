@@ -43,8 +43,7 @@ Relatorio::Relatorio(const Data &data_eleicao, const map<int, Partido> &partidos
         }
     }
     //Collections.sort(candidatos_vector, new VotoNominalComparator());
-
-    //sort(this->candidatos_vector.begin(), this->candidatos_vector.end(), VotoNominalComparator());
+    sort(this->candidatos_vector.begin(), this->candidatos_vector.end(), Candidato::VotoNominalComparator());
 
 
 }
@@ -60,7 +59,7 @@ void Relatorio::candidatos_eleitos() {
     for (const Candidato &c : this->candidatos_vector) {
         if (c.is_eleito()) {
             i++;
-            cout << i << " - " << endl;
+            cout << i << " - " << c << endl;
             //faltar imprimir os dados do candidato
         }
     }
@@ -69,7 +68,7 @@ void Relatorio::candidatos_eleitos() {
 //Relatorio 3
 void Relatorio::candidatos_mais_votados() {
     for (int i = 0; i < this->numero_total_eleitos; i++) {
-        cout << i + 1 << " - " << endl;
+        cout << i + 1 << " - " << candidatos_vector[i] << endl;
         //faltar imprimir os dados do candidato do vector ordenado
     }
 }
@@ -78,17 +77,56 @@ void Relatorio::candidatos_mais_votados() {
 void Relatorio::teriam_sido_eleitos() {
     for (int i = 0; i < this->numero_total_eleitos; i++) {
         if (!this->candidatos_vector[i].is_eleito()) {
-            cout << i + 1 << " - " << endl;
+            cout << i + 1 << " - " << candidatos_vector[i] << endl;
             //faltar imprimir os dados do candidato do vector ordenado
         }
     }
 }
 
+
 //Relatorio 5
-void Relatorio::eleitos_beneficiados_sistema_porporcional() {
+void Relatorio::eleitos_beneficiados_sistema_proporcional() {
     for (vector<Candidato>::size_type i = this->numero_total_eleitos; i < this->candidatos_vector.size(); i++) {
-        cout << i + 1 << " - " << endl;
+        cout << i + 1 << " - " << candidatos_vector[i] << endl;
         //faltar imprimir os dados do candidato do vector ordenado
+    }
+}
+
+// Relatorio 6
+void Relatorio::votosTotalizadosPorPartido() {
+    sort(partidos_vetor.begin(), partidos_vetor.end(), Partido::VotoPartidoComparator());
+    int i = 1;
+    for (Partido& p : partidos_vetor) {
+        cout << i << " - " << p << ", " << p.get_total_votos() << " voto"
+                << (p.get_total_votos() > 1 ? "s" : "") << " (" << p.get_votos_nominais()
+                << " nomina" << (p.get_votos_nominais() > 1 ? "is" : "l") << " e " << p.get_qtd_votos_legenda()
+                << " de legenda), " << p.get_eleitos() << " candidato" << (p.get_eleitos() > 1 ? "s" : "")
+                << " eleito" << (p.get_eleitos() > 1 ? "s" : "") << endl;
+        i++;
+    }
+}
+
+// Relatorio 7
+void Relatorio::primeiroUltimoColocadosPartido() {
+    sort(partidos_vetor.begin(), partidos_vetor.end(), Partido::MaisVotadoPartidoComparator());
+    int i = 1;
+    for (Partido& p : partidos_vetor) {
+        if (p.ha_candidato_cadastrado()) {
+            Candidato maisVotado = *(p.get_candidato_mais_votado());
+            Candidato menosVotado = *(p.get_candidato_menos_votado());
+            if (menosVotado.get_qtd_votos_nominal() < 2) {
+                cout << i << " - " << p.get_sigla_partido() << " - " << p.get_numero_partido() << ", " << maisVotado.get_nome_urna()
+                        << "(" << maisVotado.get_numero_candidato() << ", " << maisVotado.get_qtd_votos_nominal()
+                        << " votos)" << " / " << menosVotado.get_nome_urna() << "(" << menosVotado.get_numero_candidato()
+                        << ", " << menosVotado.get_qtd_votos_nominal() << " voto)" << endl;
+            } else {
+                cout << i << " - " << p.get_sigla_partido() << " - " << p.get_numero_partido() << ", " << maisVotado.get_nome_urna()
+                        << "(" << maisVotado.get_numero_candidato() << ", " << maisVotado.get_qtd_votos_nominal()
+                        << " votos)" << " / " << menosVotado.get_nome_urna() << "(" << menosVotado.get_numero_candidato()
+                        << ", " << menosVotado.get_qtd_votos_nominal() << " votos)" << endl;
+            }
+            i++;
+        }
     }
 }
 

@@ -28,7 +28,13 @@ public:
     void teriam_sido_eleitos();
 
     //Relatorio 5
-    void eleitos_beneficiados_sistema_porporcional();
+    void eleitos_beneficiados_sistema_proporcional();
+
+    // Relatorio 6
+    void votosTotalizadosPorPartido();
+
+    // Relatorio 7
+    void primeiroUltimoColocadosPartido();
 
     //Relatorio 8
     void eleitos_por_faixa_etaria();
