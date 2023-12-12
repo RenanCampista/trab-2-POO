@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <algorithm>
 #include "relatorio.h"
+#include <functional>
 
 using namespace std;
 
@@ -85,37 +86,27 @@ void Relatorio::votosTotalizadosPorPartido() {
 
 // Relatorio 7
 void Relatorio::primeiroUltimoColocadosPartido() {
-    //sort(partidos_vetor.begin(), partidos_vetor.end(), Partido::MaisVotadoPartidoComparator());
-
-    //Passar para um vector os partidos que possuem candidatos cadastrados
-    vector<Partido> partidos_com_candidatos;
-    for (const Partido &p : this->partidos_vetor) {
+    // Cria um vetor de referências para partidos que possuem candidatos cadastrados
+    vector<reference_wrapper<Partido>> partidos_com_candidatos;
+    for (Partido &p : this->partidos_vetor) {
         if (p.ha_candidato_cadastrado()) {
-            partidos_com_candidatos.push_back(p);
+            partidos_com_candidatos.push_back(ref(p));
         }
     }
 
+    // Ordena o vetor de referências
     sort(partidos_com_candidatos.begin(), partidos_com_candidatos.end(), Partido::MaisVotadoPartidoComparator());
 
     int i = 1;
     for (Partido& p : partidos_com_candidatos) {
-        //if (p.ha_candidato_cadastrado()) {
-
-            Candidato maisVotado = p.get_candidato_mais_votado();
-            Candidato menosVotado = p.get_candidato_menos_votado();
-            if (menosVotado.get_qtd_votos_nominal() < 2) {
-                cout << i << " - " << p.get_sigla_partido() << " - " << p.get_numero_partido() << ", " << maisVotado.get_nome_urna()
-                        << "(" << maisVotado.get_numero_candidato() << ", " << maisVotado.get_qtd_votos_nominal()
-                        << " votos)" << " / " << menosVotado.get_nome_urna() << "(" << menosVotado.get_numero_candidato()
-                        << ", " << menosVotado.get_qtd_votos_nominal() << " voto)" << endl;
-            } else {
-                cout << i << " - " << p.get_sigla_partido() << " - " << p.get_numero_partido() << ", " << maisVotado.get_nome_urna()
-                        << "(" << maisVotado.get_numero_candidato() << ", " << maisVotado.get_qtd_votos_nominal()
-                        << " votos)" << " / " << menosVotado.get_nome_urna() << "(" << menosVotado.get_numero_candidato()
-                        << ", " << menosVotado.get_qtd_votos_nominal() << " votos)" << endl;
-            }
-            i++;
-        //}
+        Candidato maisVotado = p.get_candidato_mais_votado();
+        Candidato menosVotado = p.get_candidato_menos_votado();
+        string votos = menosVotado.get_qtd_votos_nominal() < 2 ? " voto)" : " votos)";
+        cout << i << " - " << p.get_sigla_partido() << " - " << p.get_numero_partido() << ", " << maisVotado.get_nome_urna()
+             << "(" << maisVotado.get_numero_candidato() << ", " << maisVotado.get_qtd_votos_nominal()
+             << " votos)" << " / " << menosVotado.get_nome_urna() << "(" << menosVotado.get_numero_candidato()
+             << ", " << menosVotado.get_qtd_votos_nominal() << votos << endl;
+        i++;
     }
 }
 
