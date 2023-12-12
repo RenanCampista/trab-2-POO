@@ -97,7 +97,9 @@ void Relatorio::eleitos_beneficiados_sistema_proporcional() {
 
 // Relatorio 6
 void Relatorio::votosTotalizadosPorPartido() {
+    std::cerr << "Chegou aqui\n" << std::endl;
     sort(partidos_vetor.begin(), partidos_vetor.end(), Partido::VotoPartidoComparator());
+    std::cerr << "Não chegou até aqui\n" << std::endl;
     int i = 1;
     for (Partido& p : partidos_vetor) {
         cout << i << " - " << p << ", " << p.get_total_votos() << " voto"
@@ -111,12 +113,18 @@ void Relatorio::votosTotalizadosPorPartido() {
 
 // Relatorio 7
 void Relatorio::primeiroUltimoColocadosPartido() {
+    std::cerr << "Chegou aqui1\n" << std::endl;
     sort(partidos_vetor.begin(), partidos_vetor.end(), Partido::MaisVotadoPartidoComparator());
+    std::cerr << "Não Chegou até aqui1\n" << std::endl;
+
     int i = 1;
     for (Partido& p : partidos_vetor) {
         if (p.ha_candidato_cadastrado()) {
-            Candidato maisVotado = *(p.get_candidato_mais_votado());
-            Candidato menosVotado = *(p.get_candidato_menos_votado());
+            std::cerr << "Não Chegou até aqui2\n" << std::endl;
+            Candidato maisVotado = p.get_candidato_mais_votado();
+            std::cerr << "Não Chegou até aqui3\n" << std::endl;
+            Candidato menosVotado = p.get_candidato_menos_votado();
+            std::cerr << "Não Chegou até aqui4\n" << std::endl;
             if (menosVotado.get_qtd_votos_nominal() < 2) {
                 cout << i << " - " << p.get_sigla_partido() << " - " << p.get_numero_partido() << ", " << maisVotado.get_nome_urna()
                         << "(" << maisVotado.get_numero_candidato() << ", " << maisVotado.get_qtd_votos_nominal()
@@ -135,17 +143,24 @@ void Relatorio::primeiroUltimoColocadosPartido() {
 
 //Relatorio 8
 void Relatorio::eleitos_por_faixa_etaria() {
-    int idade, eleitos = this->numero_total_eleitos;
+    int idade = 0, eleitos = this->numero_total_eleitos;
     int cont_menor_30 = 0, cont_30_40 = 0, cont_40_50 = 0, cont_50_60 = 0, cont_maior_60 = 0;
-
+    std::cerr << "Estou tentando achar o erro\n" << std::endl;
     for (const Candidato &c : this->candidatos_vector) {
-        idade = c.get_idade(this->data_eleicao);
-        if (c.is_eleito()) {
+         try {
+            idade = c.get_idade(this->data_eleicao);
+            std::cerr << "Estou tentando achar o erro2\n" << std::endl;
+            std::cerr << c.get_nome_urna() << std::endl;
+            if (c.is_eleito()) {
             if (idade < 30) cont_menor_30++;
             else if (idade < 40) cont_30_40++;
             else if (idade < 50) cont_40_50++;
             else if (idade < 60) cont_50_60++;
             else cont_maior_60++;
+        }
+        std::cerr << "O erro não está aqui\n" << std::endl;
+        } catch (const std::exception& e) {
+            std::cerr << "Exceção capturada: " << e.what() << std::endl;
         }
     }
 
