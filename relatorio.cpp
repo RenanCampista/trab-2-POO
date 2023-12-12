@@ -6,11 +6,9 @@
 
 using namespace std;
 
-string imprime_candidato(const Candidato& c) {
-    string out = "";
-    if (c.tem_federacao()) out += "*";
-    out += c.get_nome_urna() + " (" + c.get_sigla_partido() + ", " + to_string(c.get_qtd_votos_nominal()) + " votos)";
-    return out;
+void imprime_candidato(const Candidato& c) {
+    // Imprime o candidato ao inves de retornar uma string, caso contrario os numeros nao estariam na formatacao correta
+    cout << (c.tem_federacao() ? "*" : "") << c.get_nome_urna() << " (" << c.get_sigla_partido() << ", " << c.get_qtd_votos_nominal() << " votos)" << endl;
 }
 
 Relatorio::Relatorio(const Data &data_eleicao, const map<int, Partido> &partidos) : data_eleicao(data_eleicao) {
@@ -39,7 +37,8 @@ void Relatorio::candidatos_eleitos() {
     for (const Candidato &c : this->candidatos_vector) {
         if (c.is_eleito()) {
             i++;
-            cout << i << " - " << imprime_candidato(c) << endl;
+            cout << i << " - ";
+            imprime_candidato(c);
         }
     }
 }
@@ -47,7 +46,8 @@ void Relatorio::candidatos_eleitos() {
 //Relatorio 3
 void Relatorio::candidatos_mais_votados() {
     for (int i = 0; i < this->numero_total_eleitos; i++) {
-        cout << i + 1 << " - " << imprime_candidato(candidatos_vector[i]) << endl;
+        cout << i + 1 << " - "; 
+        imprime_candidato(candidatos_vector[i]);
     }
 }
 
@@ -55,7 +55,8 @@ void Relatorio::candidatos_mais_votados() {
 void Relatorio::teriam_sido_eleitos() {
     for (int i = 0; i < this->numero_total_eleitos; i++) {
         if (!this->candidatos_vector[i].is_eleito()) {
-            cout << i + 1 << " - " << imprime_candidato(candidatos_vector[i]) << endl;
+            cout << i + 1 << " - "; 
+            imprime_candidato(candidatos_vector[i]);
         }
     }
 }
@@ -64,8 +65,10 @@ void Relatorio::teriam_sido_eleitos() {
 //Relatorio 5
 void Relatorio::eleitos_beneficiados_sistema_proporcional() {
     for (vector<Candidato>::size_type i = this->numero_total_eleitos; i < this->candidatos_vector.size(); i++) {
-        if(this->candidatos_vector[i].is_eleito())
-            cout << i + 1 << " - " << imprime_candidato(candidatos_vector[i]) << endl;
+        if(this->candidatos_vector[i].is_eleito()) {
+            cout << i + 1 << " - " ;
+            imprime_candidato(candidatos_vector[i]);
+        }
     }
 }
 

@@ -79,7 +79,7 @@ int main(int argc, char* argv[]) {
         cout << "\nEleitos, por faixa etária (na data da eleição):" << endl;
         relatorio->eleitos_por_faixa_etaria();
 
-        cout << "\nEleitos, por gênero:" << endl;
+        cout << "\nEleitos, por gênero:\n" << endl;
         relatorio->eleitos_por_genero();
 
         relatorio->total_votos_validos();
