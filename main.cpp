@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
     string opcao = "";
 
     try {
-        string opcao = argv[1] + 2;
+        opcao = argv[1] + 2;
         string dir_candidatos = argv[2];
         string dir_votacao(argv[3]);
         string data_string = argv[4];
@@ -79,6 +79,8 @@ int main(int argc, char* argv[]) {
         delete relatorio;
         return 1;
     }
+
+    delete relatorio;
 
     return 0;
 }
