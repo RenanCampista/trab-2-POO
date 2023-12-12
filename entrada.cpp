@@ -93,7 +93,6 @@ void Entrada::read_votacao(string &path, string &arg, map<int, Partido> &partido
   cout << "Leitura da votação realizada com sucesso." << endl;
 }
 
-
 map<int, Partido> &Entrada::read_candidatos(const string &path, const string &opcao){
 try {
     ifstream file(path);

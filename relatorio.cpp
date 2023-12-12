@@ -123,22 +123,15 @@ void Relatorio::primeiroUltimoColocadosPartido() {
 void Relatorio::eleitos_por_faixa_etaria() {
     int idade = 0, eleitos = this->numero_total_eleitos;
     int cont_menor_30 = 0, cont_30_40 = 0, cont_40_50 = 0, cont_50_60 = 0, cont_maior_60 = 0;
-    cerr << "Estou tentando achar o erro\n" << endl;
+
     for (const Candidato &c : this->candidatos_vector) {
-         try {
-            idade = c.get_idade(this->data_eleicao);
-            cerr << "Estou tentando achar o erro2\n" << endl;
-            cerr << c.get_nome_urna() << endl;
-            if (c.is_eleito()) {
+        idade = c.get_idade(this->data_eleicao);
+        if (c.is_eleito()) {
             if (idade < 30) cont_menor_30++;
             else if (idade < 40) cont_30_40++;
             else if (idade < 50) cont_40_50++;
             else if (idade < 60) cont_50_60++;
             else cont_maior_60++;
-        }
-        cerr << "O erro não está aqui\n" << endl;
-        } catch (const exception& e) {
-            cerr << "Exceção capturada: " << e.what() << endl;
         }
     }
 
