@@ -15,6 +15,7 @@ Candidato::Candidato(const int &cod_situacao_candidato, const int &numero_candid
         this->cod_genero = MASCULINO;
     else if (cod_genero == 4) 
         this->cod_genero = FEMININO; 
+    //std::cerr << this->nome_urna << std::endl;
 }
 
 const int &Candidato::get_cod_situacao_candidato() const {
@@ -51,6 +52,7 @@ const SituacaoCandidato &Candidato::get_status_candidatura() const {
 
 //não testado
 const int &Candidato::get_idade(const Data &data_atual) const {
+    std::cerr << "Estou tentando achar o erro 3\n" << std::endl;
     return data_nascimento.get_idade(data_atual);
 }
 
