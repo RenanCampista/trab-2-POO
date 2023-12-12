@@ -4,10 +4,11 @@
 #include <stdexcept>
 #include <iomanip>
 #include <string>
-#include <ctime>
 #include "partido.h"
 #include "relatorio.h"
 #include "entrada.h"
+
+using namespace std;
 
 int main(int argc, char* argv[]) {
     Entrada entrada;
@@ -16,68 +17,67 @@ int main(int argc, char* argv[]) {
     string opcao = "";
 
     try {
-        std::string str(argv[3]);
         string opcao = argv[1] + 2;
-        std::cerr << "Aqui1\n" << std::endl;
-        partidos = entrada.read_candidatos(argv[2], opcao);
-        std::cerr << "Aqui2\n" << std::endl;
-        entrada.read_votacao(str, opcao, partidos);
-        std::cerr << "Aqui3\n" << std::endl;
-        std::tm date = {};
-        std::istringstream dateStream(argv[4]);
-        dateStream >> std::get_time(&date, "%d/%m/%Y");
-        std::cerr << "Aqui4\n" << std::endl;
-        Data data_tratada = Data(date.tm_mday,date.tm_mon + 1, date.tm_year + 1900);
-        std::cerr << "Aqui5\n" << std::endl;
-        relatorio = new Relatorio(data_tratada, partidos);
-        std::cerr << "Aqui6\n" << std::endl;
-    } catch (const std::out_of_range& e) {
-        std::cerr << "Argumentos insuficientes. Certifique-se de fornecer todos os argumentos necessários." << std::endl;
+        string dir_candidatos = argv[2];
+        string dir_votacao(argv[3]);
+        string data_string = argv[4];
+
+        partidos = entrada.read_candidatos(dir_candidatos, opcao);
+        entrada.read_votacao(dir_votacao, opcao, partidos);
+
+        istringstream iss(data_string);
+        int dia, mes, ano;
+        char barra1, barra2;
+        iss >> dia >> barra1 >> mes >> barra2 >> ano;
+        Data data_eleicao = Data(dia, mes, ano);
+
+        relatorio = new Relatorio(data_eleicao, partidos);
+    } catch (const out_of_range& e) {
+        cerr << "Argumentos insuficientes. Certifique-se de fornecer todos os argumentos necessários." << endl;
         return 1;
-    } catch (const std::invalid_argument& e) {
-        std::cerr << "Erro ao analisar a data. Certifique-se de fornecer a data no formato correto (dd/MM/yyyy)." << std::endl;
+    } catch (const invalid_argument& e) {
+        cerr << "Erro ao analisar a data. Certifique-se de fornecer a data no formato correto (dd/MM/yyyy)." << endl;
         return 1;
     }
 
     try {
-        std::cout << "Número de vagas: " << relatorio->get_numero_total_eleitos() << "\n";
+        cout << "Número de vagas: " << relatorio->get_numero_total_eleitos() << "\n";
 
         if (opcao == "federal")
-            std::cout << "Deputados federais eleitos:" << std::endl;
+            cout << "Deputados federais eleitos:" << endl;
         else if (opcao == "estadual")
-            std::cout << "Deputados estaduais eleitos:" << std::endl;
+            cout << "Deputados estaduais eleitos:" << endl;
         relatorio->candidatos_eleitos();
 
-        std::cout << "\nCandidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << std::endl;
+        cout << "\nCandidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << endl;
         relatorio->candidatos_mais_votados();
 
-        std::cout << "\nTeriam sido eleitos se a votação fosse majoritária, e não foram eleitos:" << std::endl;
-        std::cout << "(com sua posição no ranking de mais votados)" << std::endl;
+        cout << "\nTeriam sido eleitos se a votação fosse majoritária, e não foram eleitos:" << endl;
+        cout << "(com sua posição no ranking de mais votados)" << endl;
         relatorio->teriam_sido_eleitos();
 
-        std::cout << "\nEleitos, que se beneficiaram do sistema proporcional:" << std::endl;
-        std::cout << "(com sua posição no ranking de mais votados)" << std::endl;
+        cout << "\nEleitos, que se beneficiaram do sistema proporcional:" << endl;
+        cout << "(com sua posição no ranking de mais votados)" << endl;
         relatorio->eleitos_beneficiados_sistema_proporcional();
 
-        std::cout << "\nVotação dos partidos e número de candidatos eleitos:" << std::endl;
+        cout << "\nVotação dos partidos e número de candidatos eleitos:" << endl;
         relatorio->votosTotalizadosPorPartido();
 
-        std::cout << "\nPrimeiro e último colocados de cada partido: " << std::endl;
+        cout << "\nPrimeiro e último colocados de cada partido: " << endl;
         relatorio->primeiroUltimoColocadosPartido();
 
-        std::cout << "\nEleitos, por faixa etária (na data da eleição):" << std::endl;
+        cout << "\nEleitos, por faixa etária (na data da eleição):" << endl;
         relatorio->eleitos_por_faixa_etaria();
 
-        std::cout << "\nEleitos, por gênero:" << std::endl;
+        cout << "\nEleitos, por gênero:" << endl;
         relatorio->eleitos_por_genero();
 
         relatorio->total_votos_validos();
-    } catch (const std::runtime_error& e) {
-        std::cerr << "Erro ao gerar os relatórios. Certifique-se de fornecer os arquivos corretos." << std::endl;
+    } catch (const runtime_error& e) {
+        cerr << "Erro ao gerar os relatórios. Certifique-se de fornecer os arquivos corretos." << endl;
         delete relatorio;
         return 1;
     }
 
-    delete relatorio;
     return 0;
 }

@@ -35,6 +35,7 @@ string iso_8859_1_to_utf8(string &str)
 Entrada::Entrada() {}
 
 void Entrada::read_votacao(string &path, string &arg, map<int, Partido> &partidos){
+
   ifstream file(path, std::ios::in);
   if (!file.is_open()) {
       cerr << "Erro ao abrir o arquivo: " << path << endl;
@@ -55,6 +56,7 @@ void Entrada::read_votacao(string &path, string &arg, map<int, Partido> &partido
               case CD_CARGO:
                 try {
                     codCargo = std::stoi(field);
+                    //cout << codCargo << endl;
                 } catch (const std::invalid_argument& e) {
                     std::cerr << "Erro ao converter o valor de CD_CARGO para inteiro: " << e.what() << std::endl;
                 }
@@ -75,11 +77,15 @@ void Entrada::read_votacao(string &path, string &arg, map<int, Partido> &partido
                 break;
           }
       }
-
+  //cout << "Lendo votação..." << endl;
       if ((arg == "estadual" && codCargo == 7) || (arg == "federal" && codCargo == 6)) {
           if (numVotavel < 95 || numVotavel > 98) {
               for (auto& p : partidos) {
-                  p.second.adicionar_voto_candidato(numVotavel, qtdVotos);
+                  if (p.second.contem_candidato(numVotavel))
+                        p.second.adicionar_voto_candidato(numVotavel, qtdVotos);
+                    //else if (numVotavel == p.second.get_numero_partido())
+                        //p.second.adicionar_voto_legenda(qtdVotos);
+                  //p.second.adicionar_voto_candidato(numVotavel, qtdVotos);
   
               }
           }
@@ -87,6 +93,7 @@ void Entrada::read_votacao(string &path, string &arg, map<int, Partido> &partido
   }
 
   file.close();
+  cout << "Leitura da votação realizada com sucesso." << endl;
 }
 
 

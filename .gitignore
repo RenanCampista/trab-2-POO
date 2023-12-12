@@ -1,4 +1,8 @@
 .vscode
+testes
+candidatos.csv
+votacao.csv
+test.sh
 # Prerequisites
 *.d
 
