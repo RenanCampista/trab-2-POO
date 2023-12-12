@@ -13,7 +13,7 @@ public:
     const int &get_dia() const;
     const int &get_mes() const;
     const int &get_ano() const;
-    const int &get_idade(const Data &data_atual) const;
+    int get_idade(const Data &data_atual) const;
     friend std::ostream& operator<<(std::ostream& os, const Data& data);
 
     class DataComparator{
