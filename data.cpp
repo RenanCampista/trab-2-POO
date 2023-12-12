@@ -29,7 +29,7 @@ int Data::get_idade(const Data &data_atual) const {
     return idade;
 }
 
-std::ostream& operator<<(std::ostream& os, const Data& data) {
+ostream& operator<<(ostream& os, const Data& data) {
     os << data.dia << "/" << data.mes << "/" << data.ano;
     return os;
 }

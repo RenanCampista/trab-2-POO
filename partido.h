@@ -33,22 +33,23 @@ public:
     void adicionar_voto_candidato(const int &numero_votavel, const int &qtd_votos);
     void adicionar_voto_legenda(const int &qtd_votos);
     const map<int, Candidato> &get_candidatos() const;
-    friend std::ostream& operator<<(std::ostream& os, const Partido& partido) {
+
+    friend ostream& operator<<(ostream& os, const Partido& partido) {
         os << partido.sigla_partido << " - " << partido.numero_partido;
         return os;
     }
+
     class VotoPartidoComparator {
         public:
             bool operator()(const Partido& p1, const Partido& p2) const {
                 int totalVotosP1 = p1.get_total_votos();
                 int totalVotosP2 = p2.get_total_votos();
-                if (totalVotosP1 > totalVotosP2){
+                if (totalVotosP1 > totalVotosP2)
                     return true;
-                }else if (totalVotosP1 == totalVotosP2){ 
+                else if (totalVotosP1 == totalVotosP2)
                     return p1.get_numero_partido() < p2.get_numero_partido() ? true : false;
-                }else{ 
+                else
                     return false;
-                }
             }
     };
 
