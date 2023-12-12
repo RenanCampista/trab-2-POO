@@ -34,6 +34,13 @@ std::sort(candidatos_vector.begin(), candidatos_vector.end(), VotoNominalCompara
 
 */
 
+string imprime_candidato(const Candidato& c) {
+    string out = "";
+    if (c.tem_federacao()) out += "*";
+    out += c.get_nome_urna() + " (" + c.get_sigla_partido() + ", " + to_string(c.get_qtd_votos_nominal()) + " votos)";
+    return out;
+}
+
 Relatorio::Relatorio(const Data &data_eleicao, const map<int, Partido> &partidos) : data_eleicao(data_eleicao) {
     for (const pair<int, Partido> p : partidos) {
         this->numero_total_eleitos = p.second.get_eleitos();
@@ -42,7 +49,7 @@ Relatorio::Relatorio(const Data &data_eleicao, const map<int, Partido> &partidos
             this->candidatos_vector.push_back(c.second);
         }
     }
-    //Collections.sort(candidatos_vector, new VotoNominalComparator());
+    sort(this->partidos_vetor.begin(), this->partidos_vetor.end(), Partido::VotoPartidoComparator());
     sort(this->candidatos_vector.begin(), this->candidatos_vector.end(), Candidato::VotoNominalComparator());
 
 
@@ -59,8 +66,7 @@ void Relatorio::candidatos_eleitos() {
     for (const Candidato &c : this->candidatos_vector) {
         if (c.is_eleito()) {
             i++;
-            cout << i << " - " << c << endl;
-            //faltar imprimir os dados do candidato
+            cout << i << " - " << imprime_candidato(c) << endl;
         }
     }
 }
@@ -68,8 +74,7 @@ void Relatorio::candidatos_eleitos() {
 //Relatorio 3
 void Relatorio::candidatos_mais_votados() {
     for (int i = 0; i < this->numero_total_eleitos; i++) {
-        cout << i + 1 << " - " << candidatos_vector[i] << endl;
-        //faltar imprimir os dados do candidato do vector ordenado
+        cout << i + 1 << " - " << imprime_candidato(candidatos_vector[i]) << endl;
     }
 }
 
@@ -77,8 +82,7 @@ void Relatorio::candidatos_mais_votados() {
 void Relatorio::teriam_sido_eleitos() {
     for (int i = 0; i < this->numero_total_eleitos; i++) {
         if (!this->candidatos_vector[i].is_eleito()) {
-            cout << i + 1 << " - " << candidatos_vector[i] << endl;
-            //faltar imprimir os dados do candidato do vector ordenado
+            cout << i + 1 << " - " << imprime_candidato(candidatos_vector[i]) << endl;
         }
     }
 }
@@ -87,8 +91,7 @@ void Relatorio::teriam_sido_eleitos() {
 //Relatorio 5
 void Relatorio::eleitos_beneficiados_sistema_proporcional() {
     for (vector<Candidato>::size_type i = this->numero_total_eleitos; i < this->candidatos_vector.size(); i++) {
-        cout << i + 1 << " - " << candidatos_vector[i] << endl;
-        //faltar imprimir os dados do candidato do vector ordenado
+        cout << i + 1 << " - " << imprime_candidato(candidatos_vector[i]) << endl;
     }
 }
 
@@ -146,12 +149,6 @@ void Relatorio::eleitos_por_faixa_etaria() {
         }
     }
 
-    // System.out.println("      Idade < 30: " + contMenor30 + " (" + (eleitos == 0 ? "0" : df.format((double) contMenor30 / eleitos * 100)) + "%)");
-    // System.out.println("30 <= Idade < 40: " + cont30a39 + " (" + (eleitos == 0 ? "0" : df.format((double) cont30a39 / eleitos * 100)) + "%)");
-    // System.out.println("40 <= Idade < 50: " + cont40a49 + " (" + (eleitos == 0 ? "0" : df.format((double) cont40a49 / eleitos * 100)) + "%)");
-    // System.out.println("50 <= Idade < 60: " + cont50a59 + " (" + (eleitos == 0 ? "0" : df.format((double) cont50a59 / eleitos * 100)) + "%)");
-    // System.out.println("60 <= Idade\t: " + cont60 + " (" + (eleitos == 0 ? "0" : df.format((double) cont60 / eleitos * 100)) + "%)");
-
     cout << fixed << setprecision(2);
 
     cout << "      Idade < 30: " << cont_menor_30 << " (" << (eleitos == 0 ? 0 : (double) cont_menor_30 / eleitos * 100) << "%)\n";
@@ -170,12 +167,6 @@ void Relatorio::eleitos_por_genero() {
         if (c.get_cod_genero() == Genero::MASCULINO && c.is_eleito()) cont_masculino++;
         else if (c.get_cod_genero() == Genero::FEMININO && c.is_eleito()) cont_feminino++;
     }
-    
-    //         System.out.println("Feminino: " + cont_feminino + " (" + (cont_feminino + cont_masculino == 0 ? "0" : 
-    //                                             df.format((double) cont_feminino / (cont_feminino + cont_masculino) * 100)) + "%)");
-    // System.out.println("Masculino: " + cont_masculino + " (" + (cont_feminino + cont_masculino == 0 ? "0" : 
-    //                                             df.format((double)cont_masculino / (cont_feminino + cont_masculino) * 100)) + "%)\n");
-
 
     cout << fixed << setprecision(2);
 
@@ -196,9 +187,6 @@ void Relatorio::total_votos_validos() {
         votos_nominais += p.get_votos_nominais();
     }
     votos_validos = votos_legenda + votos_nominais;
-    // System.out.println("Total de votos válidos: " + nf.format(votos_validos));
-    // System.out.println("Total de votos nominais: " + nf.format(votos_nominais) + " (" + (votos_validos == 0 ? "0" : df.format((double) votos_nominais / votos_validos * 100)) + "%)");
-    // System.out.println("Total de votos de legenda: " + nf.format(votos_legenda) + " (" + (votos_validos == 0 ? "0" : df.format((double) votos_legenda / votos_validos * 100)) + "%)");
 
     cout << fixed << setprecision(2);
 
