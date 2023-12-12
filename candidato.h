@@ -39,7 +39,7 @@ public:
     const Genero &get_cod_genero() const;
     const string &get_tipo_destinacao_votos() const;
     const int &get_qtd_votos_nominal() const;
-    const int &get_idade(const Data &data_atual) const;
+    int get_idade(const Data &data_atual) const;
     
     bool tem_federacao() const;
     bool votos_legenda() const;

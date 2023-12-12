@@ -51,8 +51,8 @@ const SituacaoCandidato &Candidato::get_status_candidatura() const {
 }
 
 //não testado
-const int &Candidato::get_idade(const Data &data_atual) const {
-    std::cerr << "Estou tentando achar o erro 3\n" << std::endl;
+int Candidato::get_idade(const Data &data_atual) const {
+   // std::cerr << "Estou tentando achar o erro 3\n" << std::endl;
     return data_nascimento.get_idade(data_atual);
 }
 

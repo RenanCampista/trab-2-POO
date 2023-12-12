@@ -48,7 +48,3 @@ public:
 
 #endif // _RELATORIO_H_
 
-
-
-
-#endif // _RELATORIO_H_
