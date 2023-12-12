@@ -39,7 +39,7 @@ int Partido::get_total_votos() const {
     return qtd_votos_legenda + get_votos_nominais();
 }
 
-const Candidato * &Partido::get_candidato_mais_votado() const {
+const Candidato &Partido::get_candidato_mais_votado() const {
     const Candidato *mais_votado = nullptr;
     Data::DataComparator comparator;
     for (const pair<int, Candidato> c : candidatos) {
@@ -48,12 +48,12 @@ const Candidato * &Partido::get_candidato_mais_votado() const {
         else if (c.second.get_qtd_votos_nominal() == mais_votado->get_qtd_votos_nominal() && comparator(mais_votado->get_data_nascimento(), c.second.get_data_nascimento()))
             mais_votado = &c.second;
     }
-    return mais_votado;
+    return *mais_votado;
 }
 
 //mais_votado->get_data_nascimento() > c.second.get_data_nascimento()
 
-const Candidato * &Partido::get_candidato_menos_votado() const {
+const Candidato &Partido::get_candidato_menos_votado() const {
     const Candidato *menos_votado = nullptr;
     Data::DataComparator comparator;
     for (const pair<int, Candidato> c : candidatos) {
@@ -62,7 +62,7 @@ const Candidato * &Partido::get_candidato_menos_votado() const {
         else if(c.second.get_qtd_votos_nominal() == menos_votado->get_qtd_votos_nominal() && comparator(c.second.get_data_nascimento(),menos_votado->get_data_nascimento()) && (c.second.get_cod_situacao_candidato() == 2 || c.second.get_cod_situacao_candidato() == 16))
             menos_votado = &c.second;
     }
-    return menos_votado;
+    return *menos_votado;
 }
 
 void Partido::add_candidato(const Candidato &candidato) {
@@ -78,10 +78,19 @@ bool Partido::ha_candidato_cadastrado() const {
 }
 
 void Partido::adicionar_voto_candidato(const int &numero_votavel, const int &qtd_votos) {
-    if(candidatos.at(numero_votavel).get_tipo_destinacao_votos() == "Válido (legenda)")
+    //cerr << "Problema aqui talvez3\n" << endl;
+    //cerr << candidatos.at(numero_votavel).get_tipo_destinacao_votos() << endl;
+    if(candidatos.at(numero_votavel).get_tipo_destinacao_votos() == "Válido (legenda)"){
+        //cerr << "Problema aqui talvez\n" << endl;
         this->qtd_votos_legenda += qtd_votos;
-    else
+    }else{
+        //cerr << "Problema aqui talvez2\n" << endl;
         candidatos.at(numero_votavel).adicionar_voto(qtd_votos);
+    }
+}   
+
+void Partido::adicionar_voto_legenda(const int &qtd_votos){
+    this->qtd_votos_legenda += qtd_votos;
 }
 
 const map<int, Candidato> &Partido::get_candidatos() const {
