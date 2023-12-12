@@ -92,7 +92,8 @@ void Relatorio::teriam_sido_eleitos() {
 //Relatorio 5
 void Relatorio::eleitos_beneficiados_sistema_proporcional() {
     for (vector<Candidato>::size_type i = this->numero_total_eleitos; i < this->candidatos_vector.size(); i++) {
-        cout << i + 1 << " - " << imprime_candidato(candidatos_vector[i]) << endl;
+        if(this->candidatos_vector[i].is_eleito())
+            cout << i + 1 << " - " << imprime_candidato(candidatos_vector[i]) << endl;
     }
 }
 
