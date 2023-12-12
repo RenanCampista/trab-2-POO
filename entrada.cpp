@@ -168,6 +168,8 @@ try {
         //erro
         try {
             statusCandidatura = stoi(fields[CD_SIT_TOT_TURNO].substr(1, fields[CD_SIT_TOT_TURNO].size() - 2));
+            // if (statusCandidatura == 2 || statusCandidatura == 6)
+            //     cout << "Candidato eleito" << endl;
         } catch (invalid_argument const& e) {
             cerr << "Erro ao converter o valor de CD_SIT_TOT_TURNO para inteiro: " << e.what() << endl;
         }

@@ -20,9 +20,11 @@ const int &Partido::get_qtd_votos_legenda() const {
 
 int Partido::get_eleitos() const {
     int eleitos = 0;
-    for (const auto& c : candidatos) {
-        if (c.second.is_eleito()) eleitos++;
+    for (const pair<int, Candidato> c : candidatos) {
+        if (c.second.is_eleito()) 
+            eleitos++;
     }
+    //cout << "quantidade de eleitos: " << eleitos << endl;
     return eleitos;
 }
 

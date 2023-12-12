@@ -7,9 +7,9 @@ Candidato::Candidato(const int &cod_situacao_candidato, const int &numero_candid
                             sigla_partido(sigla_partido), num_federacao(num_federacao), data_nascimento(data_nascimento), /*status_candidatura(status_candidatura),*/ 
                              /*cod_genero(cod_genero),*/ tipo_destinacao_votos(tipo_destinacao_votos), qtd_votos_nominal(qtd_votos_nominal) {   
     if (status_candidatura == 2 || status_candidatura == 3)
-        this->status_candidatura = ELEITO;
+        this->status_candidatura = SituacaoCandidato::ELEITO;
     else 
-        this->status_candidatura = NAO_ELEITO;
+        this->status_candidatura = SituacaoCandidato::NAO_ELEITO;
     
     if (cod_genero == 2) 
         this->cod_genero = MASCULINO;
@@ -77,7 +77,7 @@ bool Candidato::votos_legenda() const {
 }
 
 bool Candidato::is_eleito() const {
-    return this->status_candidatura == ELEITO;
+    return this->status_candidatura == SituacaoCandidato::ELEITO;
 }
 
 void Candidato::adicionar_voto(const int &qtd_votos) {

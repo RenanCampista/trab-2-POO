@@ -42,8 +42,9 @@ string imprime_candidato(const Candidato& c) {
 }
 
 Relatorio::Relatorio(const Data &data_eleicao, const map<int, Partido> &partidos) : data_eleicao(data_eleicao) {
+    this->numero_total_eleitos = 0;
     for (const pair<int, Partido> p : partidos) {
-        this->numero_total_eleitos = p.second.get_eleitos();
+        this->numero_total_eleitos += p.second.get_eleitos();
         this->partidos_vetor.push_back(p.second);
         for (const pair<int, Candidato> c : p.second.get_candidatos()) {
             this->candidatos_vector.push_back(c.second);
