@@ -4,35 +4,8 @@
 #include "relatorio.h"
 
 using namespace std;
+//Defirnir regiao do Brasil
 
-
-/*
-
-
-
-#include <algorithm>
-#include <vector>
-
-// Definindo a estrutura do candidato
-struct Candidato {
-    // Adicione os membros necessários aqui
-};
-
-// Definindo a classe de comparação
-struct VotoNominalComparator {
-    bool operator() (const Candidato& a, const Candidato& b) const {
-        // Implemente a lógica de comparação aqui
-        // Retorne true se 'a' deve vir antes de 'b'
-    }
-};
-
-// Em algum lugar do seu código
-std::vector<Candidato> candidatos_vector;
-// Preencha o vetor
-std::sort(candidatos_vector.begin(), candidatos_vector.end(), VotoNominalComparator());
-
-
-*/
 
 string imprime_candidato(const Candidato& c) {
     string out = "";

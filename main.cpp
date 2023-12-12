@@ -11,6 +11,7 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
+    setlocale(LC_ALL, "pt_BR.UTF-8");
     Entrada entrada;
     map<int, Partido> partidos;
     Relatorio* relatorio = nullptr;
