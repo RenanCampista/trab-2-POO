@@ -15,15 +15,9 @@ const int &Data::get_ano() const {
     return ano;
 }
 
-void Data::set_dia(const int &dia) {
+void Data::set_data(const int &dia, const int &mes, const int &ano) {
     this->dia = dia;
-}
-
-void Data::set_mes(const int &mes) {
     this->mes = mes;
-}
-
-void Data::set_ano(const int &ano) {
     this->ano = ano;
 }
 

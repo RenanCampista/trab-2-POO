@@ -1,8 +1,9 @@
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
-#include "relatorio.h"
 #include <functional>
+#include "relatorio.h"
+
 
 using namespace std;
 

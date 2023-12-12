@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
     }
 
     try {
-        cout << "Número de vagas: " << relatorio->get_numero_total_eleitos() << "\n";
+        cout << "Número de vagas: " << relatorio->get_numero_total_eleitos() << "\n\n";
 
         if (opcao == "federal")
             cout << "Deputados federais eleitos:" << endl;

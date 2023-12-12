@@ -13,9 +13,7 @@ public:
     const int &get_dia() const;
     const int &get_mes() const;
     const int &get_ano() const;
-    void set_dia(const int &dia);
-    void set_mes(const int &mes);
-    void set_ano(const int &ano);
+    void set_data(const int &dia, const int &mes, const int &ano);
     int get_idade(const Data &data_atual) const;
     friend std::ostream& operator<<(std::ostream& os, const Data& data);
 
