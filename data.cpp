@@ -17,7 +17,7 @@ const int &Data::get_ano() const {
 
 int Data::get_idade(const Data &data_atual) const {
     int idade = data_atual.ano - this->ano;
-    if (data_atual.mes < this->mes || (data_atual.mes == this->mes && data_atual.dia < this->dia)) {
+    if ((data_atual.mes < this->mes) || (data_atual.mes == this->mes && data_atual.dia < this->dia)) {
         idade--;
     }
     return idade;
