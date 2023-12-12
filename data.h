@@ -13,19 +13,29 @@ public:
     const int &get_dia() const;
     const int &get_mes() const;
     const int &get_ano() const;
+    void set_dia(const int &dia);
+    void set_mes(const int &mes);
+    void set_ano(const int &ano);
     int get_idade(const Data &data_atual) const;
     friend std::ostream& operator<<(std::ostream& os, const Data& data);
 
     class DataComparator{
         public:
-            bool operator()(const Data& d1, const Data& d2) const {
-                if(d1.ano != d2.ano){
-                    return d1.ano < d2.ano;
-                }else if(d1.mes != d2.mes){
-                    return d1.mes < d2.mes;
-                }else{
-                    return d1.dia < d2.dia; 
-                }
+            int operator()(const Data& d1, const Data& d2) const {
+                if(d1.get_ano() > d2.get_ano())
+                    return 1;
+                else if(d1.get_ano() < d2.get_ano())
+                    return -1;
+                else if(d1.get_mes() > d2.get_mes())
+                    return 1;
+                else if(d1.get_mes() < d2.get_mes())
+                    return -1;
+                else if(d1.get_dia() > d2.get_dia())
+                    return 1;
+                else if(d1.get_dia() < d2.get_dia())
+                    return -1;
+                else
+                    return 0;
             }
     };
 };

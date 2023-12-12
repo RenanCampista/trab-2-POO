@@ -42,29 +42,52 @@ int Partido::get_total_votos() const {
 }
 
 const Candidato &Partido::get_candidato_mais_votado() const {
-    const Candidato *mais_votado = nullptr;
-    Data::DataComparator comparator;
-    for (const pair<int, Candidato> c : candidatos) {
-        if (mais_votado == nullptr || c.second.get_qtd_votos_nominal() > mais_votado->get_qtd_votos_nominal())
-            mais_votado = &c.second;
-        else if (c.second.get_qtd_votos_nominal() == mais_votado->get_qtd_votos_nominal() && comparator(mais_votado->get_data_nascimento(), c.second.get_data_nascimento()))
-            mais_votado = &c.second;
+    int maior = 0;
+    int mais_votado = -1;
+
+    for (const auto& candidato : candidatos) {
+        const Candidato& c = candidato.second;
+
+        if ((mais_votado == -1|| c.get_qtd_votos_nominal() > maior) && (c.get_cod_situacao_candidato() == 2 || c.get_cod_situacao_candidato() == 16)) {
+            maior = c.get_qtd_votos_nominal();
+            mais_votado = candidato.first;  // Usamos candidato.first para obter a chave do mapa
+        } else if (c.get_qtd_votos_nominal() == maior && Data::DataComparator()(c.get_data_nascimento(), candidatos.at(mais_votado).get_data_nascimento()) > 0 && (c.get_cod_situacao_candidato() == 2 || c.get_cod_situacao_candidato() == 16)) {
+            maior = c.get_qtd_votos_nominal();
+            mais_votado = candidato.first;
+        }
     }
-    return *mais_votado;
+    return candidatos.at(mais_votado);
 }
 
 //mais_votado->get_data_nascimento() > c.second.get_data_nascimento()
 
 const Candidato &Partido::get_candidato_menos_votado() const {
-    const Candidato *menos_votado = nullptr;
-    Data::DataComparator comparator;
-    for (const pair<int, Candidato> c : candidatos) {
-        if ((menos_votado == nullptr || c.second.get_qtd_votos_nominal() < menos_votado->get_qtd_votos_nominal()) && (c.second.get_cod_situacao_candidato() == 2 || c.second.get_cod_situacao_candidato() == 16))
-            menos_votado = &c.second;
-        else if(c.second.get_qtd_votos_nominal() == menos_votado->get_qtd_votos_nominal() && comparator(c.second.get_data_nascimento(),menos_votado->get_data_nascimento()) && (c.second.get_cod_situacao_candidato() == 2 || c.second.get_cod_situacao_candidato() == 16))
-            menos_votado = &c.second;
+    int menor = 0;
+    int menos_votado = -1;
+
+    for(const auto& candidato : candidatos) {
+        const Candidato& c = candidato.second;
+
+        if ((menos_votado == -1 || c.get_qtd_votos_nominal() < menor) && (c.get_cod_situacao_candidato() == 2 || c.get_cod_situacao_candidato() == 16)) {
+            menor = c.get_qtd_votos_nominal();
+            menos_votado = candidato.first;
+        } else if (c.get_qtd_votos_nominal() == menor && Data::DataComparator()(c.get_data_nascimento(), candidatos.at(menos_votado).get_data_nascimento()) < 0 && (c.get_cod_situacao_candidato() == 2 || c.get_cod_situacao_candidato() == 16)) {
+            menor = c.get_qtd_votos_nominal();
+            menos_votado = candidato.first;
+        }
     }
-    return *menos_votado;
+
+    return candidatos.at(menos_votado);
+
+    // const Candidato *menos_votado = nullptr;
+    // Data::DataComparator comparator;
+    // for (const pair<int, Candidato> c : candidatos) {
+    //     if ((menos_votado == nullptr || c.second.get_qtd_votos_nominal() < menos_votado->get_qtd_votos_nominal()) && (c.second.get_cod_situacao_candidato() == 2 || c.second.get_cod_situacao_candidato() == 16))
+    //         menos_votado = &c.second;
+    //     else if(c.second.get_qtd_votos_nominal() == menos_votado->get_qtd_votos_nominal() && comparator(c.second.get_data_nascimento(),menos_votado->get_data_nascimento()) && (c.second.get_cod_situacao_candidato() == 2 || c.second.get_cod_situacao_candidato() == 16))
+    //         menos_votado = &c.second;
+    // }
+    // return *menos_votado;
 }
 
 void Partido::add_candidato(const Candidato &candidato) {

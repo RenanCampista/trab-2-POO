@@ -60,13 +60,13 @@ public:
                 std::cerr << c1.get_nome_urna() << std::endl;
                 std::cerr << c2.get_nome_urna() << std::endl;
 
-                if (&c1 == nullptr && &c2 == nullptr) {
-                    return false; // No comparison possible, consider them equal
-                } else if (&c1 == nullptr) {
-                    return false; // c2 is greater as c1 is considered minimal
-                } else if (&c2 == nullptr) {
-                    return true; // c1 is greater as c2 is considered minimal
-                }
+                // if (&c1 == nullptr && &c2 == nullptr) {
+                //     return false; // No comparison possible, consider them equal
+                // } else if (&c1 == nullptr) {
+                //     return false; // c2 is greater as c1 is considered minimal
+                // } else if (&c2 == nullptr) {
+                //     return true; // c1 is greater as c2 is considered minimal
+                // }
 
                 int votosP1 = c1.get_qtd_votos_nominal();
                 int votosP2 = c2.get_qtd_votos_nominal();
