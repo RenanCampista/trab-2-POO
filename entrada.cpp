@@ -83,10 +83,8 @@ void Entrada::read_votacao(string &path, string &arg, map<int, Partido> &partido
                 for (auto& p : partidos) {
                     if (p.second.contem_candidato(numVotavel))
                         p.second.adicionar_voto_candidato(numVotavel, qtdVotos);
-                    //else if (numVotavel == p.second.get_numero_partido())
-                        //p.second.adicionar_voto_legenda(qtdVotos);
-                    //p.second.adicionar_voto_candidato(numVotavel, qtdVotos);
-
+                    else if (numVotavel == p.second.get_numero_partido())
+                        p.second.adicionar_voto_legenda(qtdVotos);
                 }
             }
         }
