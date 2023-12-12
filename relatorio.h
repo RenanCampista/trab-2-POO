@@ -46,6 +46,8 @@ public:
     void total_votos_validos();
 };
 
+#endif // _RELATORIO_H_
+
 
 
 
