@@ -70,7 +70,7 @@ void Relatorio::eleitos_beneficiados_sistema_proporcional() {
 }
 
 // Relatorio 6
-void Relatorio::votosTotalizadosPorPartido() {
+void Relatorio::votos_totalizados_por_partido() {
     sort(partidos_vetor.begin(), partidos_vetor.end(), Partido::VotoPartidoComparator());
 
     int i = 1;
@@ -85,7 +85,7 @@ void Relatorio::votosTotalizadosPorPartido() {
 }
 
 // Relatorio 7
-void Relatorio::primeiroUltimoColocadosPartido() {
+void Relatorio::primeiro_ultimo_colocados_partido() {
     // Cria um vetor de referências para partidos que possuem candidatos cadastrados
     vector<reference_wrapper<Partido>> partidos_com_candidatos;
     for (Partido &p : this->partidos_vetor) {

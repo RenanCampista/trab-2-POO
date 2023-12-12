@@ -62,10 +62,10 @@ int main(int argc, char* argv[]) {
         relatorio->eleitos_beneficiados_sistema_proporcional();
 
         cout << "\nVotação dos partidos e número de candidatos eleitos:" << endl;
-        relatorio->votosTotalizadosPorPartido();
+        relatorio->votos_totalizados_por_partido();
 
         cout << "\nPrimeiro e último colocados de cada partido: " << endl;
-        relatorio->primeiroUltimoColocadosPartido();
+        relatorio->primeiro_ultimo_colocados_partido();
 
         cout << "\nEleitos, por faixa etária (na data da eleição):" << endl;
         relatorio->eleitos_por_faixa_etaria();

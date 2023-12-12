@@ -10,25 +10,25 @@
 string iso_8859_1_to_utf8(string &str)
 {
   // adaptado de: https://stackoverflow.com/a/39884120 :-)
-  string strOut;
+  string str_out;
   for (string::iterator it = str.begin(); it != str.end(); ++it)
   {
     uint8_t ch = *it;
     if (ch < 0x80)
     {
       // já está na faixa ASCII (bit mais significativo 0), só copiar para a saída
-      strOut.push_back(ch);
+      str_out.push_back(ch);
     }
     else
     {
       // está na faixa ASCII-estendido, escrever 2 bytes de acordo com UTF-8
       // o primeiro byte codifica os 2 bits mais significativos do byte original (ISO-8859-1)
-      strOut.push_back(0b11000000 | (ch >> 6));
+      str_out.push_back(0b11000000 | (ch >> 6));
       // o segundo byte codifica os 6 bits menos significativos do byte original (ISO-8859-1)
-      strOut.push_back(0b10000000 | (ch & 0b00111111));
+      str_out.push_back(0b10000000 | (ch & 0b00111111));
     }
   }
-  return strOut;
+  return str_out;
 }
 
 
@@ -45,7 +45,7 @@ void Entrada::read_votacao(string &path, string &arg, map<int, Partido> &partido
   string line;
   getline(file, line); // Ignora a primeira linha
 
-  int codCargo = 0, numVotavel = 0, qtdVotos = 0;
+  int cod_cargo = 0, num_votavel = 0, qtd_votos = 0;
     while (getline(file, line)) {
         istringstream iss(line);
         string field;
@@ -55,21 +55,21 @@ void Entrada::read_votacao(string &path, string &arg, map<int, Partido> &partido
             switch (static_cast<EntradaVotacao>(i)) {
                 case CD_CARGO:
                 try {
-                    codCargo = stoi(field);
+                    cod_cargo = stoi(field);
                 } catch (const invalid_argument& e) {
                     cerr << "Erro ao converter o valor de CD_CARGO para inteiro: " << e.what() << endl;
                 }
                 break;
                 case NR_VOTAVEL:
                 try {
-                    numVotavel = stoi(field);
+                    num_votavel = stoi(field);
                 } catch (const invalid_argument& e) {
                     cerr << "Erro ao converter o valor de NR_VOTAVEL para inteiro: " << e.what() << endl;
                 }
                 break;
                 case QT_VOTOS:
                 try {
-                    qtdVotos = stoi(field);
+                    qtd_votos = stoi(field);
                 } catch (const invalid_argument& e) {
                     cerr << "Erro ao converter o valor de QT_VOTOS para inteiro: " << e.what() << endl;
                 }
@@ -77,13 +77,13 @@ void Entrada::read_votacao(string &path, string &arg, map<int, Partido> &partido
             }
         }
 
-        if ((arg == "estadual" && codCargo == 7) || (arg == "federal" && codCargo == 6)) {
-            if (numVotavel < 95 || numVotavel > 98) {
+        if ((arg == "estadual" && cod_cargo == 7) || (arg == "federal" && cod_cargo == 6)) {
+            if (num_votavel < 95 || num_votavel > 98) {
                 for (auto& p : partidos) {
-                    if (p.second.contem_candidato(numVotavel))
-                        p.second.adicionar_voto_candidato(numVotavel, qtdVotos);
-                    else if (numVotavel == p.second.get_numero_partido())
-                        p.second.adicionar_voto_legenda(qtdVotos);
+                    if (p.second.contem_candidato(num_votavel))
+                        p.second.adicionar_voto_candidato(num_votavel, qtd_votos);
+                    else if (num_votavel == p.second.get_numero_partido())
+                        p.second.adicionar_voto_legenda(qtd_votos);
                 }
             }
         }
@@ -115,23 +115,23 @@ try {
             fields.push_back(field);
         }
 
-        int codCargo = 0, codSituacaoCandidato = 0, numCandidato = 0, numPartido = 0, numFederacao = 0, statusCandidatura = 0, codGenero = 0;
+        int cod_cargo = 0, cod_situacao_candidato = 0, num_candidato = 0, num_partido = 0, num_federacao = 0, status_candidatura = 0, cod_genero = 0;
         string nomeUrna, siglaPartido, tipoDestinacaoVotos;
         tm dataNascimento = {};//erro
         try {
-            codCargo = stoi(fields[CD_CARGO_CANDIDATO].substr(1, fields[CD_CARGO_CANDIDATO].size() - 2));
+            cod_cargo = stoi(fields[CD_CARGO_CANDIDATO].substr(1, fields[CD_CARGO_CANDIDATO].size() - 2));
         } catch (invalid_argument const& e) {
             cerr << "Erro ao converter o valor de CD_CARGO_CANDIDATO para inteiro: " << e.what() << endl;
         }
 
         try {
-            codSituacaoCandidato = stoi(fields[CD_SITUACAO_CANDIDATO_TOT].substr(1, fields[CD_SITUACAO_CANDIDATO_TOT].size() - 2));
+            cod_situacao_candidato = stoi(fields[CD_SITUACAO_CANDIDATO_TOT].substr(1, fields[CD_SITUACAO_CANDIDATO_TOT].size() - 2));
         } catch (invalid_argument const& e) {
             cerr << "Erro ao converter o valor de CD_SITUACAO_CANDIDATO_TOT para inteiro: " << e.what() << endl;
         }
 
         try {
-            numCandidato = stoi(fields[NR_CANDIDATO].substr(1, fields[NR_CANDIDATO].size() - 2));
+            num_candidato = stoi(fields[NR_CANDIDATO].substr(1, fields[NR_CANDIDATO].size() - 2));
         } catch (invalid_argument const& e) {
             cerr << "Erro ao converter o valor de NR_CANDIDATO para inteiro: " << e.what() << endl;
         }
@@ -139,7 +139,7 @@ try {
         nomeUrna = iso_8859_1_to_utf8(nomeUrna);
 
         try {
-            numPartido = stoi(fields[NR_PARTIDO].substr(1, fields[NR_PARTIDO].size() - 2));
+            num_partido = stoi(fields[NR_PARTIDO].substr(1, fields[NR_PARTIDO].size() - 2));
         } catch (invalid_argument const& e) {
             cerr << "Erro ao converter o valor de NR_PARTIDO para inteiro: " << e.what() << endl;
         }
@@ -148,7 +148,7 @@ try {
         siglaPartido = iso_8859_1_to_utf8(siglaPartido);
      
         try {
-            numFederacao = stoi(fields[NR_FEDERACAO].substr(1, fields[NR_FEDERACAO].size() - 2));
+            num_federacao = stoi(fields[NR_FEDERACAO].substr(1, fields[NR_FEDERACAO].size() - 2));
         } catch (invalid_argument const& e) {
             cerr << "Erro ao converter o valor de NR_FEDERACAO para inteiro: " << e.what() << endl;
         }
@@ -163,33 +163,33 @@ try {
         }
         
         try {
-            statusCandidatura = stoi(fields[CD_SIT_TOT_TURNO].substr(1, fields[CD_SIT_TOT_TURNO].size() - 2));
+            status_candidatura = stoi(fields[CD_SIT_TOT_TURNO].substr(1, fields[CD_SIT_TOT_TURNO].size() - 2));
             
         } catch (invalid_argument const& e) {
             cerr << "Erro ao converter o valor de CD_SIT_TOT_TURNO para inteiro: " << e.what() << endl;
         }
         try {
-            codGenero = stoi(fields[CD_GENERO].substr(1, fields[CD_GENERO].size() - 2));
+            cod_genero = stoi(fields[CD_GENERO].substr(1, fields[CD_GENERO].size() - 2));
         } catch (invalid_argument const& e) {
             cerr << "Erro ao converter o valor de CD_GENERO para inteiro: " << e.what() << endl;
         }   
         tipoDestinacaoVotos = fields[NM_TIPO_DESTINACAO_VOTOS].substr(1, fields[NM_TIPO_DESTINACAO_VOTOS].size() - 2);
         tipoDestinacaoVotos = iso_8859_1_to_utf8(tipoDestinacaoVotos);
         Data data_tratada = Data(dataNascimento.tm_mday,dataNascimento.tm_mon + 1, dataNascimento.tm_year + 1900);
-        Candidato candidato(codSituacaoCandidato, numCandidato, nomeUrna, numPartido, siglaPartido, numFederacao, data_tratada, statusCandidatura, codGenero, tipoDestinacaoVotos, 0);
+        Candidato candidato(cod_situacao_candidato, num_candidato, nomeUrna, num_partido, siglaPartido, num_federacao, data_tratada, status_candidatura, cod_genero, tipoDestinacaoVotos, 0);
         
-        if (partidos.find(numPartido) != partidos.end()) {
-            if ((opcao == "estadual" && codCargo == 7) || (opcao == "federal" && codCargo == 6)) {
+        if (partidos.find(num_partido) != partidos.end()) {
+            if ((opcao == "estadual" && cod_cargo == 7) || (opcao == "federal" && cod_cargo == 6)) {
                 if ((candidato.get_cod_situacao_candidato() == 2 || candidato.get_cod_situacao_candidato() == 16) || tipoDestinacaoVotos == "Válido (legenda)")
-                    partidos.at(numPartido).add_candidato(candidato);
+                    partidos.at(num_partido).add_candidato(candidato);
             }
         } else {
-            Partido partido(numPartido, siglaPartido);
-            if ((opcao == "estadual" && codCargo == 7) || (opcao == "federal" && codCargo == 6)) {
+            Partido partido(num_partido, siglaPartido);
+            if ((opcao == "estadual" && cod_cargo == 7) || (opcao == "federal" && cod_cargo == 6)) {
                 if ((candidato.get_cod_situacao_candidato() == 2 || candidato.get_cod_situacao_candidato() == 16) || tipoDestinacaoVotos == "Válido (legenda)")
                     partido.add_candidato(candidato);
             }
-            partidos.insert({numPartido, partido});
+            partidos.insert({num_partido, partido});
             
         }          
         getline(file, line);

@@ -31,10 +31,10 @@ public:
     void eleitos_beneficiados_sistema_proporcional();
 
     // Relatorio 6
-    void votosTotalizadosPorPartido();
+    void votos_totalizados_por_partido();
 
     // Relatorio 7
-    void primeiroUltimoColocadosPartido();
+    void primeiro_ultimo_colocados_partido();
 
     //Relatorio 8
     void eleitos_por_faixa_etaria();
