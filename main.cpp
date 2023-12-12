@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <iomanip>
 #include <string>
+#include <locale>
 #include "partido.h"
 #include "relatorio.h"
 #include "entrada.h"
@@ -11,11 +12,19 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-    setlocale(LC_ALL, "pt_BR.UTF-8");
     Entrada entrada;
     map<int, Partido> partidos;
     Relatorio* relatorio = nullptr;
     string opcao = "";
+
+    try {
+        locale brasil_locale("pt_BR.UTF-8");
+        cout.imbue(brasil_locale);
+        // Se a localidade não estiver disponível na máquina, o programa continuará usando a localidade padrão.
+    } catch (const std::runtime_error& e) {
+        cerr << "A localidade 'pt_BR.UTF-8' não está disponível. Usando a localidade padrão." << endl;
+    }
+    cout << fixed << setprecision(2);
 
     try {
         opcao = argv[1] + 2;

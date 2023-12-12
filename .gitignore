@@ -4,6 +4,7 @@ testes
 candidatos.csv
 votacao.csv
 test.sh
+deputados
 # Prerequisites
 *.d
 

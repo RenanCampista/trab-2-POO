@@ -4,7 +4,6 @@
 #include <functional>
 #include "relatorio.h"
 
-
 using namespace std;
 
 string imprime_candidato(const Candidato& c) {
@@ -127,14 +126,11 @@ void Relatorio::eleitos_por_faixa_etaria() {
         }
     }
 
-    cout << fixed << setprecision(2);
-
     cout << "      Idade < 30: " << cont_menor_30 << " (" << (eleitos == 0 ? 0 : (double) cont_menor_30 / eleitos * 100) << "%)\n";
     cout << "30 <= Idade < 40: " << cont_30_40 << " (" << (eleitos == 0 ? 0 : (double) cont_30_40 / eleitos * 100) << "%)\n";
     cout << "40 <= Idade < 50: " << cont_40_50 << " (" << (eleitos == 0 ? 0 : (double) cont_40_50 / eleitos * 100) << "%)\n";
     cout << "50 <= Idade < 60: " <<  cont_50_60 << " (" << (eleitos == 0 ? 0 : (double)  cont_50_60 / eleitos * 100) << "%)\n";
     cout << "60 <= Idade\t: " << cont_maior_60 << " (" << (eleitos == 0 ? 0 : (double) cont_maior_60 / eleitos * 100) << "%)\n";
-
 }
 
 //Relatorio 9
@@ -146,12 +142,8 @@ void Relatorio::eleitos_por_genero() {
         else if (c.get_cod_genero() == Genero::FEMININO && c.is_eleito()) cont_feminino++;
     }
 
-    cout << fixed << setprecision(2);
-
     cout << "Feminino: " << cont_feminino << " (" << (cont_feminino + cont_masculino == 0 ? 0 : (double) cont_feminino / (cont_feminino + cont_masculino) * 100) << "%)\n";
     cout << "Masculino: " << cont_masculino << " (" << (cont_feminino + cont_masculino == 0 ? 0 : (double) cont_masculino / (cont_feminino + cont_masculino) * 100) << "%)\n";
-    
-    
 }
 
 //Relatorio 10
@@ -164,12 +156,10 @@ void Relatorio::total_votos_validos() {
         votos_legenda += p.get_qtd_votos_legenda();
         votos_nominais += p.get_votos_nominais();
     }
-    votos_validos = votos_legenda + votos_nominais;
 
-    cout << fixed << setprecision(2);
+    votos_validos = votos_legenda + votos_nominais;
 
     cout << "Total de votos válidos: " << votos_validos << "\n";
     cout << "Total de votos nominais: " << votos_nominais << " (" << (votos_validos == 0 ? 0 : (double) votos_nominais / votos_validos * 100) << "%)\n";
     cout << "Total de votos de legenda: " << votos_legenda << " (" << (votos_validos == 0 ? 0 : (double) votos_legenda / votos_validos * 100) << "%)\n";
-
 }
