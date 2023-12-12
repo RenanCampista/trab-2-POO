@@ -57,16 +57,6 @@ public:
             bool operator()(const Partido& p1, const Partido& p2) const {
                 const Candidato c1 = p1.get_candidato_mais_votado();
                 const Candidato c2 = p2.get_candidato_mais_votado();
-                std::cerr << c1.get_nome_urna() << std::endl;
-                std::cerr << c2.get_nome_urna() << std::endl;
-
-                // if (&c1 == nullptr && &c2 == nullptr) {
-                //     return false; // No comparison possible, consider them equal
-                // } else if (&c1 == nullptr) {
-                //     return false; // c2 is greater as c1 is considered minimal
-                // } else if (&c2 == nullptr) {
-                //     return true; // c1 is greater as c2 is considered minimal
-                // }
 
                 int votosP1 = c1.get_qtd_votos_nominal();
                 int votosP2 = c2.get_qtd_votos_nominal();

@@ -40,7 +40,4 @@ public:
     };
 };
 
-
-
-
 #endif // _DATA_H_

@@ -56,7 +56,6 @@ void Entrada::read_votacao(string &path, string &arg, map<int, Partido> &partido
                 case CD_CARGO:
                 try {
                     codCargo = stoi(field);
-                    //cout << codCargo << endl;
                 } catch (const invalid_argument& e) {
                     cerr << "Erro ao converter o valor de CD_CARGO para inteiro: " << e.what() << endl;
                 }
@@ -77,7 +76,7 @@ void Entrada::read_votacao(string &path, string &arg, map<int, Partido> &partido
                 break;
             }
         }
-    //cout << "Lendo votação..." << endl;
+
         if ((arg == "estadual" && codCargo == 7) || (arg == "federal" && codCargo == 6)) {
             if (numVotavel < 95 || numVotavel > 98) {
                 for (auto& p : partidos) {
@@ -144,17 +143,17 @@ try {
             numPartido = stoi(fields[NR_PARTIDO].substr(1, fields[NR_PARTIDO].size() - 2));
         } catch (invalid_argument const& e) {
             cerr << "Erro ao converter o valor de NR_PARTIDO para inteiro: " << e.what() << endl;
-        }//erro
+        }
 
         siglaPartido = fields[SG_PARTIDO].substr(1, fields[SG_PARTIDO].size() - 2);
         siglaPartido = iso_8859_1_to_utf8(siglaPartido);
-        //erro
+     
         try {
             numFederacao = stoi(fields[NR_FEDERACAO].substr(1, fields[NR_FEDERACAO].size() - 2));
         } catch (invalid_argument const& e) {
             cerr << "Erro ao converter o valor de NR_FEDERACAO para inteiro: " << e.what() << endl;
         }
-        //erro
+       
         if (fields[DT_NASCIMENTO].substr(1, fields[DT_NASCIMENTO].size() - 2) != "") {
             try {
                 istringstream dateStream(fields[DT_NASCIMENTO].substr(1, fields[DT_NASCIMENTO].size() - 2));
@@ -163,11 +162,10 @@ try {
                 cerr << "Erro ao converter o valor de DT_NASCIMENTO para data: " << e.what() << endl;
             }
         }
-        //erro
+        
         try {
             statusCandidatura = stoi(fields[CD_SIT_TOT_TURNO].substr(1, fields[CD_SIT_TOT_TURNO].size() - 2));
-            // if (statusCandidatura == 2 || statusCandidatura == 6)
-            //     cout << "Candidato eleito" << endl;
+            
         } catch (invalid_argument const& e) {
             cerr << "Erro ao converter o valor de CD_SIT_TOT_TURNO para inteiro: " << e.what() << endl;
         }

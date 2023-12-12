@@ -4,8 +4,6 @@
 #include "relatorio.h"
 
 using namespace std;
-//Defirnir regiao do Brasil
-
 
 string imprime_candidato(const Candidato& c) {
     string out = "";
@@ -72,9 +70,8 @@ void Relatorio::eleitos_beneficiados_sistema_proporcional() {
 
 // Relatorio 6
 void Relatorio::votosTotalizadosPorPartido() {
-   // cerr << "Chegou aqui\n" << endl;
     sort(partidos_vetor.begin(), partidos_vetor.end(), Partido::VotoPartidoComparator());
-    //cerr << "Não chegou até aqui\n" << endl;
+
     int i = 1;
     for (Partido& p : partidos_vetor) {
         cout << i << " - " << p << ", " << p.get_total_votos() << " voto"
@@ -88,18 +85,24 @@ void Relatorio::votosTotalizadosPorPartido() {
 
 // Relatorio 7
 void Relatorio::primeiroUltimoColocadosPartido() {
-    cerr << "Chegou aqui1\n" << endl;
     //sort(partidos_vetor.begin(), partidos_vetor.end(), Partido::MaisVotadoPartidoComparator());
-    cerr << "Ordenou\n" << endl;
+
+    //Passar para um vector os partidos que possuem candidatos cadastrados
+    vector<Partido> partidos_com_candidatos;
+    for (const Partido &p : this->partidos_vetor) {
+        if (p.ha_candidato_cadastrado()) {
+            partidos_com_candidatos.push_back(p);
+        }
+    }
+
+    sort(partidos_com_candidatos.begin(), partidos_com_candidatos.end(), Partido::MaisVotadoPartidoComparator());
 
     int i = 1;
-    for (Partido& p : partidos_vetor) {
-        if (p.ha_candidato_cadastrado()) {
-            cerr << "Não Chegou até aqui2\n" << endl;
+    for (Partido& p : partidos_com_candidatos) {
+        //if (p.ha_candidato_cadastrado()) {
+
             Candidato maisVotado = p.get_candidato_mais_votado();
-            cerr << "Não Chegou até aqui3\n" << endl;
             Candidato menosVotado = p.get_candidato_menos_votado();
-            cerr << "Não Chegou até aqui4\n" << endl;
             if (menosVotado.get_qtd_votos_nominal() < 2) {
                 cout << i << " - " << p.get_sigla_partido() << " - " << p.get_numero_partido() << ", " << maisVotado.get_nome_urna()
                         << "(" << maisVotado.get_numero_candidato() << ", " << maisVotado.get_qtd_votos_nominal()
@@ -112,7 +115,7 @@ void Relatorio::primeiroUltimoColocadosPartido() {
                         << ", " << menosVotado.get_qtd_votos_nominal() << " votos)" << endl;
             }
             i++;
-        }
+        //}
     }
 }
 
