@@ -105,9 +105,9 @@ void Relatorio::primeiro_ultimo_colocados_partido() {
         Candidato maisVotado = p.get_candidato_mais_votado();
         Candidato menosVotado = p.get_candidato_menos_votado();
         string votos = menosVotado.get_qtd_votos_nominal() < 2 ? " voto)" : " votos)";
-        cout << i << " - " << p.get_sigla_partido() << " - " << p.get_numero_partido() << ", " << maisVotado.get_nome_urna()
-             << "(" << maisVotado.get_numero_candidato() << ", " << maisVotado.get_qtd_votos_nominal()
-             << " votos)" << " / " << menosVotado.get_nome_urna() << "(" << menosVotado.get_numero_candidato()
+        cout << i << " - " << p.get_sigla_partido() << " - " << to_string(p.get_numero_partido()) << ", " << maisVotado.get_nome_urna()
+             << "(" << to_string(maisVotado.get_numero_candidato()) << ", " << maisVotado.get_qtd_votos_nominal()
+             << " votos)" << " / " << menosVotado.get_nome_urna() << "(" << to_string(menosVotado.get_numero_candidato())
              << ", " << menosVotado.get_qtd_votos_nominal() << votos << endl;
         i++;
     }
@@ -164,5 +164,5 @@ void Relatorio::total_votos_validos() {
 
     cout << "Total de votos válidos: " << votos_validos << "\n";
     cout << "Total de votos nominais: " << votos_nominais << " (" << (votos_validos == 0 ? 0 : (double) votos_nominais / votos_validos * 100) << "%)\n";
-    cout << "Total de votos de legenda: " << votos_legenda << " (" << (votos_validos == 0 ? 0 : (double) votos_legenda / votos_validos * 100) << "%)\n";
+    cout << "Total de votos de legenda: " << votos_legenda << " (" << (votos_validos == 0 ? 0 : (double) votos_legenda / votos_validos * 100) << "%)\n\n";
 }
