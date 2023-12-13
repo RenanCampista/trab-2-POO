@@ -73,13 +73,13 @@ int main(int argc, char* argv[]) {
         cout << "\nVotação dos partidos e número de candidatos eleitos:" << endl;
         relatorio->votos_totalizados_por_partido();
 
-        cout << "\nPrimeiro e último colocados de cada partido: " << endl;
+        cout << "\nPrimeiro e último colocados de cada partido:" << endl;
         relatorio->primeiro_ultimo_colocados_partido();
 
         cout << "\nEleitos, por faixa etária (na data da eleição):" << endl;
         relatorio->eleitos_por_faixa_etaria();
 
-        cout << "\nEleitos, por gênero:\n" << endl;
+        cout << "\nEleitos, por gênero:" << endl;
         relatorio->eleitos_por_genero();
 
         relatorio->total_votos_validos();

@@ -106,8 +106,8 @@ void Relatorio::primeiro_ultimo_colocados_partido() {
         Candidato menosVotado = p.get_candidato_menos_votado();
         string votos = menosVotado.get_qtd_votos_nominal() < 2 ? " voto)" : " votos)";
         cout << i << " - " << p.get_sigla_partido() << " - " << to_string(p.get_numero_partido()) << ", " << maisVotado.get_nome_urna()
-             << "(" << to_string(maisVotado.get_numero_candidato()) << ", " << maisVotado.get_qtd_votos_nominal()
-             << " votos)" << " / " << menosVotado.get_nome_urna() << "(" << to_string(menosVotado.get_numero_candidato())
+             << " (" << to_string(maisVotado.get_numero_candidato()) << ", " << maisVotado.get_qtd_votos_nominal()
+             << " votos)" << " / " << menosVotado.get_nome_urna() << " (" << to_string(menosVotado.get_numero_candidato())
              << ", " << menosVotado.get_qtd_votos_nominal() << votos << endl;
         i++;
     }
@@ -133,7 +133,7 @@ void Relatorio::eleitos_por_faixa_etaria() {
     cout << "30 <= Idade < 40: " << cont_30_40 << " (" << (eleitos == 0 ? 0 : (double) cont_30_40 / eleitos * 100) << "%)\n";
     cout << "40 <= Idade < 50: " << cont_40_50 << " (" << (eleitos == 0 ? 0 : (double) cont_40_50 / eleitos * 100) << "%)\n";
     cout << "50 <= Idade < 60: " <<  cont_50_60 << " (" << (eleitos == 0 ? 0 : (double)  cont_50_60 / eleitos * 100) << "%)\n";
-    cout << "60 <= Idade\t: " << cont_maior_60 << " (" << (eleitos == 0 ? 0 : (double) cont_maior_60 / eleitos * 100) << "%)\n";
+    cout << "60 <= Idade     : " << cont_maior_60 << " (" << (eleitos == 0 ? 0 : (double) cont_maior_60 / eleitos * 100) << "%)\n";
 }
 
 //Relatorio 9
@@ -141,12 +141,13 @@ void Relatorio::eleitos_por_genero() {
     int cont_masculino = 0, cont_feminino = 0;
 
     for (const Candidato &c : this->candidatos_vector) {
-        if (c.get_cod_genero() == Genero::MASCULINO && c.is_eleito()) cont_masculino++;
-        else if (c.get_cod_genero() == Genero::FEMININO && c.is_eleito()) cont_feminino++;
+        if (c.is_eleito()) {
+            if (c.get_cod_genero() == MASCULINO) cont_masculino++;
+            else cont_feminino++;
+        }
     }
-
-    cout << "Feminino: " << cont_feminino << " (" << (cont_feminino + cont_masculino == 0 ? 0 : (double) cont_feminino / (cont_feminino + cont_masculino) * 100) << "%)\n";
-    cout << "Masculino: " << cont_masculino << " (" << (cont_feminino + cont_masculino == 0 ? 0 : (double) cont_masculino / (cont_feminino + cont_masculino) * 100) << "%)\n";
+    cout << "Feminino:  " << cont_feminino << " (" << (cont_feminino + cont_masculino == 0 ? 0 : (double) cont_feminino / (cont_feminino + cont_masculino) * 100) << "%)\n";
+    cout << "Masculino: " << cont_masculino << " (" << (cont_feminino + cont_masculino == 0 ? 0 : (double) cont_masculino / (cont_feminino + cont_masculino) * 100) << "%)\n\n";
 }
 
 //Relatorio 10
@@ -162,7 +163,7 @@ void Relatorio::total_votos_validos() {
 
     votos_validos = votos_legenda + votos_nominais;
 
-    cout << "Total de votos válidos: " << votos_validos << "\n";
-    cout << "Total de votos nominais: " << votos_nominais << " (" << (votos_validos == 0 ? 0 : (double) votos_nominais / votos_validos * 100) << "%)\n";
+    cout << "Total de votos válidos:    " << votos_validos << "\n";
+    cout << "Total de votos nominais:   " << votos_nominais << " (" << (votos_validos == 0 ? 0 : (double) votos_nominais / votos_validos * 100) << "%)\n";
     cout << "Total de votos de legenda: " << votos_legenda << " (" << (votos_validos == 0 ? 0 : (double) votos_legenda / votos_validos * 100) << "%)\n\n";
 }
