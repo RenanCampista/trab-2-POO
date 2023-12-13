@@ -68,7 +68,7 @@ const Candidato &Partido::get_candidato_menos_votado() const {
         if ((menos_votado == -1 || c.get_qtd_votos_nominal() < menor) && (c.get_cod_situacao_candidato() == 2 || c.get_cod_situacao_candidato() == 16)) {
             menor = c.get_qtd_votos_nominal();
             menos_votado = candidato.first;
-        } else if (c.get_qtd_votos_nominal() == menor && Data::DataComparator()(c.get_data_nascimento(), candidatos.at(menos_votado).get_data_nascimento()) < 0 && (c.get_cod_situacao_candidato() == 2 || c.get_cod_situacao_candidato() == 16)) {
+        } else if (c.get_qtd_votos_nominal() == menor && Data::DataComparator()(c.get_data_nascimento(), candidatos.at(menos_votado).get_data_nascimento()) > 0 && (c.get_cod_situacao_candidato() == 2 || c.get_cod_situacao_candidato() == 16)) {
             menor = c.get_qtd_votos_nominal();
             menos_votado = candidato.first;
         }
